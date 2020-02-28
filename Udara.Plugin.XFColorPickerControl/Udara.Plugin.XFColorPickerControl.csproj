@@ -6,7 +6,9 @@
     <PackageProjectUrl>https://github.com/UdaraAlwis/XFColorPickerControl/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/UdaraAlwis/XFColorPickerControl/</RepositoryUrl>
     <PackageReleaseNotes>[1.0.0]
-Init release.</PackageReleaseNotes>
+Init release.
+[1.0.1]
+Fixes and nuget config.</PackageReleaseNotes>
     <PackageTags>Color Picker, Xamarin Forms, Interactive, Responsive, Control, Plugin</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Interactive and responsive Color Picker Control for Xamarin.Forms based on SkiaSharp.</Description>
@@ -15,6 +17,9 @@ Init release.</PackageReleaseNotes>
     <PackageIcon>nugeticon.png</PackageIcon>
     <PackageIconUrl />
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
