@@ -5,10 +5,7 @@ An interactive and responsive Color Picker Control for Xamarin.Forms based on Sk
 
 Setting it up:
 
-* Grab it on NuGet: https://www.nuget.org/packages/Udara.Plugin.XFColorPickerControl
-/ [![NuGet](https://img.shields.io/nuget/v/Udara.Plugin.XFColorPickerControl
-.svg?label=NuGet)](https://www.nuget.org/packages/Udara.Plugin.XFColorPickerControl
-/)
+* Grab it on NuGet: https://www.nuget.org/packages/Udara.Plugin.XFColorPickerControl/ [![NuGet](https://img.shields.io/nuget/v/Udara.Plugin.XFColorPickerControl.svg?label=NuGet)](https://www.nuget.org/packages/Udara.Plugin.XFColorPickerControl/)
 * Just install in your Xamarin.Forms PCL/.NET Standard  project, you're good go!
 
 Blog post:
