@@ -9,6 +9,9 @@ namespace Udara.Plugin.XFColorPickerControl
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ColorPickerControl : ContentView
 	{
+        /// <summary>
+        /// Occurs when the Picked Color changes
+        /// </summary>
 		public event EventHandler<Color> PickedColorChanged;
 
 		public static readonly BindableProperty PickedColorProperty
@@ -17,10 +20,13 @@ namespace Udara.Plugin.XFColorPickerControl
 				typeof(Color),
 				typeof(ColorPickerControl));
 
+		/// <summary>
+		/// Get the current Picked Color
+		/// </summary>
 		public Color PickedColor
 		{
 			get { return (Color)GetValue(PickedColorProperty); }
-			set { SetValue(PickedColorProperty, value); }
+			private set { SetValue(PickedColorProperty, value); }
 		}
 
 		private SKPoint _lastTouchPoint = new SKPoint();
@@ -101,22 +107,6 @@ namespace Udara.Plugin.XFColorPickerControl
 
 			// Represent the color of the current Touch point
 			SKColor touchPointColor;
-
-			//// Inefficient: causes memory overload errors
-			//using (var skImage = skSurface.Snapshot())
-			//{
-			//	using (var skData = skImage.Encode(SKEncodedImageFormat.Webp, 100))
-			//	{
-			//		if (skData != null)
-			//		{
-			//			using (SKBitmap bitmap = SKBitmap.Decode(skData))
-			//			{
-			//				touchPointColor = bitmap.GetPixel(
-			//									(int)_lastTouchPoint.X, (int)_lastTouchPoint.Y);
-			//			}
-			//		}
-			//	}
-			//}
 
 			// Efficient and fast
 			// https://forums.xamarin.com/discussion/92899/read-a-pixel-info-from-a-canvas

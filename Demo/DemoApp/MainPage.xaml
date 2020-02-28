@@ -30,6 +30,7 @@
                 FontSize="Medium"
                 HorizontalTextAlignment="Center"
                 Text="This is my Interactive and Responsive Color Picker Control based on SkiaSharp!" />
+
         </StackLayout>
 
         <StackLayout
