@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="XFColorPickerControl.Controls.ColorPicker"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    mc:Ignorable="d">
+
+    <skia:SKCanvasView
+        x:Name="SkCanvasView"
+        EnableTouchEvents="True"
+        PaintSurface="SkCanvasView_OnPaintSurface"
+        Touch="SkCanvasView_OnTouch" />
+
+    <!--
+        WHITE COLORS BLACK
+        ^CHANGE THE ORDER
+        SET THE COLORS LIST
+        MAKE PICKER A CIRCLE
+        ADDING TRANSPARENCY
+        ADD SEPARETE BAR TO CONTROL DARK | LIGHT NESS
+        SET UP A POPUP
+    -->
+
+</ContentView>
