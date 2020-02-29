@@ -114,20 +114,7 @@ namespace XFColorPickerControl.Controls
 			using (var paint = new SKPaint())
 			{
 				paint.IsAntialias = true;
-
-				// Initiate the primary Color list
-				// picked up from Google Web Color Picker
-				//var colors = new SKColor[]
-				//{
-				//	new SKColor(255, 0, 0), // Red
-				//	new SKColor(255, 255, 0), // Yellow
-				//	new SKColor(0, 255, 0), // Green (Lime)
-				//	new SKColor(0, 255, 255), // Aqua
-				//	new SKColor(0, 0, 255), // Blue
-				//	new SKColor(255, 0, 255), // Fuchsia
-				//	new SKColor(255, 0, 0), // Red
-				//};
-
+				
 				System.Collections.Generic.List<SKColor> colors = new System.Collections.Generic.List<SKColor>();
 				ColorList.ForEach((color) => { colors.Add(Color.FromHex(color).ToSKColor()); });
 
