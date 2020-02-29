@@ -2,6 +2,7 @@
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace XFColorPickerControl.Controls
@@ -47,6 +48,50 @@ namespace XFColorPickerControl.Controls
 		}
 
 
+		public static readonly BindableProperty ColorListProperty
+			= BindableProperty.Create(
+				nameof(ColorList),
+				typeof(string[]),
+				typeof(ColorPicker),
+				new string[]
+				{
+					new Color(255, 0, 0).ToHex(), // Red
+					new Color(255, 255, 0).ToHex(), // Yellow
+					new Color(0, 255, 0).ToHex(), // Green (Lime)
+					new Color(0, 255, 255).ToHex(), // Aqua
+					new Color(0, 0, 255).ToHex(), // Blue
+					new Color(255, 0, 255).ToHex(), // Fuchsia
+					new Color(255, 0, 0).ToHex(), // Red
+				},
+				BindingMode.OneTime, null);
+
+		/// <summary>
+		/// Sets the Color List
+		/// </summary>
+		public string[] ColorList
+		{
+			get { return (string[])GetValue(ColorListProperty); }
+			set { SetValue(ColorListProperty, value); }
+		}
+
+
+		public static readonly BindableProperty ColorListDirectionProperty
+			= BindableProperty.Create(
+				nameof(ColorListDirection),
+				typeof(ColorListDirection),
+				typeof(ColorPicker),
+				ColorListDirection.Horizontal,
+				BindingMode.OneTime);
+
+		/// <summary>
+		/// Sets the Color List flow Direction
+		/// </summary>
+		public ColorListDirection ColorListDirection
+		{
+			get { return (ColorListDirection)GetValue(ColorListDirectionProperty); }
+			set { SetValue(ColorListDirectionProperty, value); }
+		}
+
 		private SKPoint _lastTouchPoint = new SKPoint();
 
 		public ColorPicker()
@@ -72,22 +117,26 @@ namespace XFColorPickerControl.Controls
 
 				// Initiate the primary Color list
 				// picked up from Google Web Color Picker
-				var colors = new SKColor[]
-				{
-					new SKColor(255, 0, 0), // Red
-					new SKColor(255, 255, 0), // Yellow
-					new SKColor(0, 255, 0), // Green (Lime)
-					new SKColor(0, 255, 255), // Aqua
-					new SKColor(0, 0, 255), // Blue
-					new SKColor(255, 0, 255), // Fuchsia
-					new SKColor(255, 0, 0), // Red
-				};
+				//var colors = new SKColor[]
+				//{
+				//	new SKColor(255, 0, 0), // Red
+				//	new SKColor(255, 255, 0), // Yellow
+				//	new SKColor(0, 255, 0), // Green (Lime)
+				//	new SKColor(0, 255, 255), // Aqua
+				//	new SKColor(0, 0, 255), // Blue
+				//	new SKColor(255, 0, 255), // Fuchsia
+				//	new SKColor(255, 0, 0), // Red
+				//};
+
+				System.Collections.Generic.List<SKColor> colors = new System.Collections.Generic.List<SKColor>();
+				ColorList.ForEach((color) => { colors.Add(Color.FromHex(color).ToSKColor()); });
 
 				// create the gradient shader between Colors
 				using (var shader = SKShader.CreateLinearGradient(
 					new SKPoint(0, 0),
-					new SKPoint(skCanvasWidth, 0),
-					colors,
+					ColorListDirection == ColorListDirection.Horizontal ?
+						new SKPoint(skCanvasWidth, 0) : new SKPoint(0, skCanvasHeight),
+					colors.ToArray(),
 					null,
 					SKShaderTileMode.Clamp))
 				{
@@ -102,74 +151,13 @@ namespace XFColorPickerControl.Controls
 				paint.IsAntialias = true;
 
 				// Initiate the darkened primary color list
-				var colors = new SKColor[]
-				{
-					SKColors.Transparent,
-					SKColors.Black
-				};
-
-				if (GradientOrder == GradientOrder.Colors)
-				{
-					colors = new SKColor[]
-					{
-						SKColors.Transparent
-					};
-				}
-				else if (GradientOrder == GradientOrder.ColorsToDark)
-				{
-					colors = new SKColor[]
-					{
-						SKColors.Transparent,
-						SKColors.Black
-					};
-				}
-				else if (GradientOrder == GradientOrder.DarkToColors)
-				{
-					colors = new SKColor[]
-					{
-						SKColors.Black,
-						SKColors.Transparent
-					};
-				}
-				else if (GradientOrder == GradientOrder.ColorsToLight)
-				{
-					colors = new SKColor[]
-					{
-						SKColors.Transparent,
-						SKColors.White
-					};
-				}
-				else if (GradientOrder == GradientOrder.LightToColors)
-				{
-					colors = new SKColor[]
-					{
-						SKColors.White,
-						SKColors.Transparent
-					};
-				}
-				else if (GradientOrder == GradientOrder.LightToColorsToDark)
-				{
-					colors = new SKColor[]
-					{
-						SKColors.White,
-						SKColors.Transparent,
-						SKColors.Black
-					};
-				}
-				else if (GradientOrder == GradientOrder.DarkToColorsToLight)
-				{
-					colors = new SKColor[]
-					{
-						SKColors.Black,
-						SKColors.Transparent,
-						SKColors.White
-					};
-				}
+				var colors = GetGradientOrder();
 
 				// create the gradient shader 
 				using (var shader = SKShader.CreateLinearGradient(
 					new SKPoint(0, 0),
-					new SKPoint(0, skCanvasHeight),
+					ColorListDirection == ColorListDirection.Horizontal ?
+						new SKPoint(0, skCanvasHeight) : new SKPoint(skCanvasWidth, 0),
 					colors,
 					null,
 					SKShaderTileMode.Clamp))
@@ -251,6 +239,75 @@ namespace XFColorPickerControl.Controls
 				SkCanvasView.InvalidateSurface();
 			}
 		}
+
+		private SKColor[] GetGradientOrder() 
+		{
+			if (GradientOrder == GradientOrder.Colors)
+			{
+				return new SKColor[]
+				{
+						SKColors.Transparent
+				};
+			}
+			else if (GradientOrder == GradientOrder.ColorsToDark)
+			{
+				return new SKColor[]
+				{
+						SKColors.Transparent,
+						SKColors.Black
+				};
+			}
+			else if (GradientOrder == GradientOrder.DarkToColors)
+			{
+				return new SKColor[]
+				{
+						SKColors.Black,
+						SKColors.Transparent
+				};
+			}
+			else if (GradientOrder == GradientOrder.ColorsToLight)
+			{
+				return new SKColor[]
+				{
+						SKColors.Transparent,
+						SKColors.White
+				};
+			}
+			else if (GradientOrder == GradientOrder.LightToColors)
+			{
+				return new SKColor[]
+				{
+						SKColors.White,
+						SKColors.Transparent
+				};
+			}
+			else if (GradientOrder == GradientOrder.LightToColorsToDark)
+			{
+				return new SKColor[]
+				{
+						SKColors.White,
+						SKColors.Transparent,
+						SKColors.Black
+				};
+			}
+			else if (GradientOrder == GradientOrder.DarkToColorsToLight)
+			{
+				return new SKColor[]
+				{
+						SKColors.Black,
+						SKColors.Transparent,
+						SKColors.White
+				};
+			}
+			else
+			{
+				return new SKColor[]
+				{
+					SKColors.Transparent,
+					SKColors.Black
+				};
+			}
+		}
 	}
 
 	public enum GradientOrder
@@ -262,5 +319,11 @@ namespace XFColorPickerControl.Controls
 		LightToColors,
 		LightToColorsToDark,
 		DarkToColorsToLight
+	}
+
+	public enum ColorListDirection 
+	{
+		Horizontal,
+		Vertical
 	}
 }

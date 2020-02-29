@@ -61,11 +61,23 @@
                 WidthRequest="350">
                 <controls:ColorPicker
                     x:Name="ColorPicker"
-                    GradientOrder="LightToColors"
-                    PickedColorChanged="ColorPicker_PickedColorChanged" />
+                    ColorListDirection="Horizontal"
+                    GradientOrder="LightToColorsToDark"
+                    PickedColorChanged="ColorPicker_PickedColorChanged">
+                    <controls:ColorPicker.ColorList>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>#ff0000</x:String>
+                            <x:String>#ffff00</x:String>
+                            <x:String>#00ff00</x:String>
+                            <x:String>#00ffff</x:String>
+                            <x:String>#0000ff</x:String>
+                            <x:String>#ff00ff</x:String>
+                            <x:String>#ff0000</x:String>
+                        </x:Array>
+                    </controls:ColorPicker.ColorList>
+                </controls:ColorPicker>
             </Frame>
         </StackLayout>
-
 
     </Grid>
 

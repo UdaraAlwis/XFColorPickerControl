@@ -15,9 +15,10 @@
         Touch="SkCanvasView_OnTouch" />
 
     <!--
-        WHITE COLORS BLACK
-        ^CHANGE THE ORDER
-        SET THE COLORS LIST
+        WHITE COLORS BLACK -
+        ^CHANGE THE ORDER -
+        SET THE COLORS LIST -
+    
         MAKE PICKER A CIRCLE
         ADDING TRANSPARENCY
         ADD SEPARETE BAR TO CONTROL DARK | LIGHT NESS
