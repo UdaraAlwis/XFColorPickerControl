@@ -92,8 +92,7 @@ namespace XFColorPickerControl.Controls
 			get { return (ColorListDirection)GetValue(ColorListDirectionProperty); }
 			set { SetValue(ColorListDirectionProperty, value); }
 		}
-
-
+		
 
 		public static readonly BindableProperty PointerCircleDiameterUnitsProperty
 			= BindableProperty.Create(
