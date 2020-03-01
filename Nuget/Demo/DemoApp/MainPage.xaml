@@ -60,7 +60,7 @@
                 HeightRequest="200"
                 HorizontalOptions="Center"
                 WidthRequest="350">
-                <xfColorPickerControl:ColorPickerControl x:Name="ColorPicker" PickedColorChanged="ColorPicker_PickedColorChanged" />
+                <xfColorPickerControl:ColorPicker x:Name="ColorPicker" PickedColorChanged="ColorPicker_PickedColorChanged" />
             </Frame>
         </StackLayout>
 

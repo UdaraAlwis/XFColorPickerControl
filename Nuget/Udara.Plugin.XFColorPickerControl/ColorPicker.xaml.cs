@@ -5,7 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
-namespace XFColorPickerControl.Controls
+namespace Udara.Plugin.XFColorPickerControl
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ColorPicker : ContentView

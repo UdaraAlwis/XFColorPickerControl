@@ -5,11 +5,15 @@
     <Authors>Udara Alwis</Authors>
     <PackageProjectUrl>https://github.com/UdaraAlwis/XFColorPickerControl/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/UdaraAlwis/XFColorPickerControl/</RepositoryUrl>
-    <PackageReleaseNotes>[1.0.0]
-Init release.
-[1.0.1]
-Fixes and nuget config.</PackageReleaseNotes>
-    <PackageTags>Color Picker, Xamarin Forms, Interactive, Responsive, Control, Plugin</PackageTags>
+    <PackageReleaseNotes>
+      [1.0.0]
+      Init release.
+      [1.0.1]
+      Fixes and nuget config.
+      [1.0.2]
+      Adding new features and bug fixes.
+    </PackageReleaseNotes>
+    <PackageTags>Color Picker Xamarin Forms Interactive Responsive Control Plugin</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Interactive and responsive Color Picker Control for Xamarin.Forms based on SkiaSharp.</Description>
     <Copyright>Udara Alwis</Copyright>
@@ -28,16 +32,13 @@ Fixes and nuget config.</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ColorPickerControl.xaml.cs">
-      <DependentUpon>ColorPickerControl.xaml</DependentUpon>
+    <Compile Update="ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ColorPickerControl.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="ColorPickerControl.xaml">
+    <EmbeddedResource Update="ColorPicker.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
