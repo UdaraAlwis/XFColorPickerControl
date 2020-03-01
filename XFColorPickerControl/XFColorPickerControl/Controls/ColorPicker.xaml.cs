@@ -30,21 +30,22 @@ namespace XFColorPickerControl.Controls
 			private set { SetValue(PickedColorProperty, value); }
 		}
 
-		public static readonly BindableProperty GradientOrderProperty
+
+		public static readonly BindableProperty GradientColorStyleProperty
 			= BindableProperty.Create(
-				nameof(GradientOrder),
-				typeof(GradientOrder),
+				nameof(GradientColorStyle),
+				typeof(GradientColorStyle),
 				typeof(ColorPicker),
-				GradientOrder.ColorsToDark, 
+				GradientColorStyle.ColorsToDarkStyle, 
 				BindingMode.OneTime, null);
 
 		/// <summary>
-		/// Set the Color Spectrum Gradient Order
+		/// Set the Color Spectrum Gradient Style
 		/// </summary>
-		public GradientOrder GradientOrder
+		public GradientColorStyle GradientColorStyle
 		{
-			get { return (GradientOrder)GetValue(GradientOrderProperty); }
-			set { SetValue(GradientOrderProperty, value); }
+			get { return (GradientColorStyle)GetValue(GradientColorStyleProperty); }
+			set { SetValue(GradientColorStyleProperty, value); }
 		}
 
 
@@ -91,6 +92,7 @@ namespace XFColorPickerControl.Controls
 			get { return (ColorListDirection)GetValue(ColorListDirectionProperty); }
 			set { SetValue(ColorListDirectionProperty, value); }
 		}
+
 
 		private SKPoint _lastTouchPoint = new SKPoint();
 
@@ -185,8 +187,9 @@ namespace XFColorPickerControl.Controls
 				paintTouchPoint.IsAntialias = true;
 
 				// Outer circle (Ring)
-				var outerRingRadius =
-					((float)skCanvasWidth / (float)skCanvasHeight) * (float)18;
+				//var outerRingRadius =
+				//	((float)skCanvasWidth / (float)skCanvasHeight) * (float)18;
+				var outerRingRadius = skCanvasWidth / 24f;
 				skCanvas.DrawCircle(
 					_lastTouchPoint.X,
 					_lastTouchPoint.Y,
@@ -195,9 +198,10 @@ namespace XFColorPickerControl.Controls
 				// Draw another circle with picked color
 				paintTouchPoint.Color = touchPointColor;
 
-				// Outer circle (Ring)
-				var innerRingRadius =
-					((float)skCanvasWidth / (float)skCanvasHeight) * (float)12;
+				// Inner circle (Ring)
+				//var innerRingRadius =
+				//	((float)skCanvasWidth / (float)skCanvasHeight) * (float)12;
+				var innerRingRadius = skCanvasWidth / 32f;
 				skCanvas.DrawCircle(
 					_lastTouchPoint.X,
 					_lastTouchPoint.Y,
@@ -229,14 +233,14 @@ namespace XFColorPickerControl.Controls
 
 		private SKColor[] GetGradientOrder() 
 		{
-			if (GradientOrder == GradientOrder.Colors)
+			if (GradientColorStyle == GradientColorStyle.ColorsOnlyStyle)
 			{
 				return new SKColor[]
 				{
 						SKColors.Transparent
 				};
 			}
-			else if (GradientOrder == GradientOrder.ColorsToDark)
+			else if (GradientColorStyle == GradientColorStyle.ColorsToDarkStyle)
 			{
 				return new SKColor[]
 				{
@@ -244,7 +248,7 @@ namespace XFColorPickerControl.Controls
 						SKColors.Black
 				};
 			}
-			else if (GradientOrder == GradientOrder.DarkToColors)
+			else if (GradientColorStyle == GradientColorStyle.DarkToColorsStyle)
 			{
 				return new SKColor[]
 				{
@@ -252,7 +256,7 @@ namespace XFColorPickerControl.Controls
 						SKColors.Transparent
 				};
 			}
-			else if (GradientOrder == GradientOrder.ColorsToLight)
+			else if (GradientColorStyle == GradientColorStyle.ColorsToLightStyle)
 			{
 				return new SKColor[]
 				{
@@ -260,7 +264,7 @@ namespace XFColorPickerControl.Controls
 						SKColors.White
 				};
 			}
-			else if (GradientOrder == GradientOrder.LightToColors)
+			else if (GradientColorStyle == GradientColorStyle.LightToColorsStyle)
 			{
 				return new SKColor[]
 				{
@@ -268,7 +272,7 @@ namespace XFColorPickerControl.Controls
 						SKColors.Transparent
 				};
 			}
-			else if (GradientOrder == GradientOrder.LightToColorsToDark)
+			else if (GradientColorStyle == GradientColorStyle.LightToColorsToDarkStyle)
 			{
 				return new SKColor[]
 				{
@@ -277,7 +281,7 @@ namespace XFColorPickerControl.Controls
 						SKColors.Black
 				};
 			}
-			else if (GradientOrder == GradientOrder.DarkToColorsToLight)
+			else if (GradientColorStyle == GradientColorStyle.DarkToColorsToLightStyle)
 			{
 				return new SKColor[]
 				{
@@ -297,15 +301,15 @@ namespace XFColorPickerControl.Controls
 		}
 	}
 
-	public enum GradientOrder
+	public enum GradientColorStyle
 	{
-		Colors,
-		ColorsToDark,
-		DarkToColors,
-		ColorsToLight,
-		LightToColors,
-		LightToColorsToDark,
-		DarkToColorsToLight
+		ColorsOnlyStyle,
+		ColorsToDarkStyle,
+		DarkToColorsStyle,
+		ColorsToLightStyle,
+		LightToColorsStyle,
+		LightToColorsToDarkStyle,
+		DarkToColorsToLightStyle
 	}
 
 	public enum ColorListDirection 

@@ -62,7 +62,7 @@
                 <controls:ColorPicker
                     x:Name="ColorPicker"
                     ColorListDirection="Horizontal"
-                    GradientOrder="LightToColorsToDark"
+                    GradientColorStyle="DarkToColorsToLightStyle"
                     PickedColorChanged="ColorPicker_PickedColorChanged">
                     <controls:ColorPicker.ColorList>
                         <x:Array Type="{x:Type x:String}">
