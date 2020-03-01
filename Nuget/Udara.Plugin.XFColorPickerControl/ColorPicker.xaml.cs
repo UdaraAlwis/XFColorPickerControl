@@ -229,7 +229,7 @@ namespace Udara.Plugin.XFColorPickerControl
                 var valueToCalcAgainst = (skCanvasWidth > skCanvasHeight) ? skCanvasWidth : skCanvasHeight;
 
                 var pointerCircleDiameterUnits = PointerCircleDiameterUnits; // 0.6 (Default)
-                pointerCircleDiameterUnits = (float)pointerCircleDiameterUnits / 10f;
+                pointerCircleDiameterUnits = (float)pointerCircleDiameterUnits / 10f; //  calculate 1/10th of that value
                 var pointerCircleDiameter = (float)(valueToCalcAgainst * pointerCircleDiameterUnits);
 
                 // Outer circle of the Pointer (Ring)
@@ -242,7 +242,8 @@ namespace Udara.Plugin.XFColorPickerControl
                 paintTouchPoint.Color = touchPointColor;
 
                 var pointerCircleBorderWidthUnits = PointerCircleBorderUnits; // 0.3 (Default)
-                var pointerCircleBorderWidth = (float)pointerCircleDiameter * (float)pointerCircleBorderWidthUnits;
+                var pointerCircleBorderWidth = (float)pointerCircleDiameter *
+                                                        (float)pointerCircleBorderWidthUnits; // Calculate against Pointer Circle
 
                 // Inner circle of the Pointer (Ring)
                 skCanvas.DrawCircle(
