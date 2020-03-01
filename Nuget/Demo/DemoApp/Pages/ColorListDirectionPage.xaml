@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DemoApp.Pages.ColorListDirectionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xfColorPickerControl="clr-namespace:Udara.Plugin.XFColorPickerControl;assembly=Udara.Plugin.XFColorPickerControl"
+    ios:Page.UseSafeArea="true"
+    mc:Ignorable="d">
+
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button
+            x:Name="GoBackButton"
+            Grid.Row="0"
+            Clicked="GoBackButton_Clicked"
+            Text="Back" />
+
+        <Frame
+            x:Name="SelectedColorDisplayFrame"
+            Grid.Row="1"
+            BackgroundColor="White"
+            CornerRadius="0"
+            HasShadow="True"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout
+                Orientation="Vertical"
+                Spacing="15"
+                VerticalOptions="Center">
+                <Label
+                    x:Name="SelectedColorValueLabel"
+                    FontAttributes="Bold"
+                    FontSize="Title"
+                    HeightRequest="70"
+                    HorizontalTextAlignment="Center"
+                    Text="#COLOR"
+                    TextColor="SlateGray"
+                    VerticalTextAlignment="Center" />
+                <xfColorPickerControl:ColorPicker
+                    x:Name="ColorPicker"
+                    ColorListDirection="Horizontal"
+                    GradientColorStyle="LightToColorsToDarkStyle"
+                    HeightRequest="200"
+                    HorizontalOptions="FillAndExpand"
+                    PickedColorChanged="ColorPicker_PickedColorChanged"
+                    PointerCircleBorderUnits="0.3"
+                    PointerCircleDiameterUnits="0.7">
+                    <xfColorPickerControl:ColorPicker.ColorList>
+                        <x:Array Type="{x:Type x:String}">
+                            <!--  Red  -->
+                            <x:String>#ff0000</x:String>
+                            <!--  Yellow  -->
+                            <x:String>#ffff00</x:String>
+                            <!--  Green (Lime)  -->
+                            <x:String>#00ff00</x:String>
+                            <!--  Aqua  -->
+                            <x:String>#00ffff</x:String>
+                            <!--  Blue  -->
+                            <x:String>#0000ff</x:String>
+                            <!--  Fuchsia  -->
+                            <x:String>#ff00ff</x:String>
+                            <!--  Red  -->
+                            <x:String>#ff0000</x:String>
+                        </x:Array>
+                    </xfColorPickerControl:ColorPicker.ColorList>
+                </xfColorPickerControl:ColorPicker>
+            </StackLayout>
+        </Frame>
+
+        <StackLayout Grid.Row="2">
+            <Button
+                x:Name="SetHorizontalButton"
+                Clicked="SetHorizontalButton_Clicked"
+                Text="Set Horizontal" />
+            <Button
+                x:Name="SetVerticalButton"
+                Clicked="SetVerticalButton_Clicked"
+                Text="Set Vertical" />
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

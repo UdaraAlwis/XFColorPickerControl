@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DemoApp.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace DemoApp
+namespace DemoApp.Pages
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
@@ -23,12 +24,31 @@ namespace DemoApp
             // Use the selected color
             SelectedColorDisplayFrame.BackgroundColor = colorPicked;
             SelectedColorValueLabel.Text = colorPicked.ToHex();
-            ColorPickerHolderFrame.BackgroundColor = colorPicked;
 
-            if (colorPicked.Luminosity < 0.5)
+            if (colorPicked.IsColorDark())
                 SelectedColorValueLabel.TextColor = Xamarin.Forms.Color.White;
             else
                 SelectedColorValueLabel.TextColor = Xamarin.Forms.Color.SlateGray;
+        }
+
+        private void GoToColorListDirectionDemoPage_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new ColorListDirectionPage());
+        }
+
+        private void GoToGradientColorStyleDemoPage_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new GradientColorStylePage());
+        }
+
+        private void GoToPointerCircleDemoPage_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GoToColorListDemoPage_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }
