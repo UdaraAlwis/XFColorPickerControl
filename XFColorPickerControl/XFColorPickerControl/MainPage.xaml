@@ -63,7 +63,9 @@
                     x:Name="ColorPicker"
                     ColorListDirection="Horizontal"
                     GradientColorStyle="DarkToColorsToLightStyle"
-                    PickedColorChanged="ColorPicker_PickedColorChanged">
+                    PickedColorChanged="ColorPicker_PickedColorChanged"
+                    PointerCircleBorderUnits="0.3"
+                    PointerCircleDiameterUnits="0.7">
                     <controls:ColorPicker.ColorList>
                         <x:Array Type="{x:Type x:String}">
                             <!--  Red  -->

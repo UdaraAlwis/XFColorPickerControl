@@ -94,6 +94,45 @@ namespace XFColorPickerControl.Controls
 		}
 
 
+
+		public static readonly BindableProperty PointerCircleDiameterUnitsProperty
+			= BindableProperty.Create(
+				nameof(PointerCircleDiameterUnits),
+				typeof(double),
+				typeof(ColorPicker),
+				0.6,
+				BindingMode.OneTime);
+
+		/// <summary>
+		/// Sets the Picker Pointer Size
+		/// Value must be between 0-1
+		/// </summary>
+		public double PointerCircleDiameterUnits
+		{
+			get { return (double)GetValue(PointerCircleDiameterUnitsProperty); }
+			set { SetValue(PointerCircleDiameterUnitsProperty, value); }
+		}
+
+
+		public static readonly BindableProperty PointerCircleBorderUnitsProperty
+			= BindableProperty.Create(
+				nameof(PointerCircleBorderUnits),
+				typeof(double),
+				typeof(ColorPicker),
+				0.3,
+				BindingMode.OneTime);
+
+		/// <summary>
+		/// Sets the Picker Pointer Border Size
+		/// Value must be between 0-1
+		/// </summary>
+		public double PointerCircleBorderUnits
+		{
+			get { return (double)GetValue(PointerCircleBorderUnitsProperty); }
+			set { SetValue(PointerCircleBorderUnitsProperty, value); }
+		}
+
+
 		private SKPoint _lastTouchPoint = new SKPoint();
 
 		public ColorPicker()
@@ -186,26 +225,29 @@ namespace XFColorPickerControl.Controls
 				paintTouchPoint.Color = SKColors.White;
 				paintTouchPoint.IsAntialias = true;
 
-				// Outer circle (Ring)
-				//var outerRingRadius =
-				//	((float)skCanvasWidth / (float)skCanvasHeight) * (float)18;
-				var outerRingRadius = skCanvasWidth / 24f;
+				var valueToCalcAgainst = (skCanvasWidth > skCanvasHeight) ? skCanvasWidth : skCanvasHeight;
+
+				var pointerCircleDiameterUnits = PointerCircleDiameterUnits; // 0.6 (Default)
+				pointerCircleDiameterUnits = (float)pointerCircleDiameterUnits / 10f;
+				var pointerCircleDiameter = (float)(valueToCalcAgainst * pointerCircleDiameterUnits);
+
+				// Outer circle of the Pointer (Ring)
 				skCanvas.DrawCircle(
 					_lastTouchPoint.X,
 					_lastTouchPoint.Y,
-					outerRingRadius, paintTouchPoint);
+					pointerCircleDiameter / 2, paintTouchPoint);
 
 				// Draw another circle with picked color
 				paintTouchPoint.Color = touchPointColor;
 
-				// Inner circle (Ring)
-				//var innerRingRadius =
-				//	((float)skCanvasWidth / (float)skCanvasHeight) * (float)12;
-				var innerRingRadius = skCanvasWidth / 32f;
+				var pointerCircleBorderWidthUnits = PointerCircleBorderUnits; // 0.3 (Default)
+				var pointerCircleBorderWidth = (float)pointerCircleDiameter * (float)pointerCircleBorderWidthUnits;
+
+				// Inner circle of the Pointer (Ring)
 				skCanvas.DrawCircle(
 					_lastTouchPoint.X,
 					_lastTouchPoint.Y,
-					innerRingRadius, paintTouchPoint);
+					((pointerCircleDiameter - pointerCircleBorderWidth) / 2), paintTouchPoint);
 			}
 
 			// Set selected color
