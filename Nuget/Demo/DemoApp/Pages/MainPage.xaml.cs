@@ -26,9 +26,9 @@ namespace DemoApp.Pages
             SelectedColorValueLabel.Text = colorPicked.ToHex();
 
             if (colorPicked.IsColorDark())
-                SelectedColorValueLabel.TextColor = Xamarin.Forms.Color.White;
+                SelectedColorValueLabel.TextColor = Color.White;
             else
-                SelectedColorValueLabel.TextColor = Xamarin.Forms.Color.SlateGray;
+                SelectedColorValueLabel.TextColor = Color.SlateGray;
         }
 
         private void GoToColorListDirectionDemoPage_Clicked(object sender, EventArgs e)
