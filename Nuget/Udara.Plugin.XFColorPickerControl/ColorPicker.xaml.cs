@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
@@ -49,10 +50,10 @@ namespace Udara.Plugin.XFColorPickerControl
         }
 
 
-        public static readonly BindableProperty ColorListProperty
+        public static readonly BindableProperty BaseColorListProperty
             = BindableProperty.Create(
-                nameof(ColorList),
-                typeof(string[]),
+                nameof(BaseColorList),
+                typeof(IEnumerable),
                 typeof(ColorPicker),
                 new string[]
                 {
@@ -67,12 +68,12 @@ namespace Udara.Plugin.XFColorPickerControl
                 BindingMode.OneTime, null);
 
         /// <summary>
-        /// Sets the Color List
+        /// Sets the Base Color List
         /// </summary>
-        public string[] ColorList
+        public IEnumerable BaseColorList
         {
-            get { return (string[])GetValue(ColorListProperty); }
-            set { SetValue(ColorListProperty, value); }
+            get { return (IEnumerable)GetValue(BaseColorListProperty); }
+            set { SetValue(BaseColorListProperty, value); }
         }
 
 
@@ -157,9 +158,11 @@ namespace Udara.Plugin.XFColorPickerControl
             {
                 paint.IsAntialias = true;
 
+                ColorTypeConverter converter = new ColorTypeConverter();
                 System.Collections.Generic.List<SKColor> colors = new System.Collections.Generic.List<SKColor>();
-                ColorList.ForEach((color) => { colors.Add(Color.FromHex(color).ToSKColor()); });
-
+                foreach (var color in BaseColorList)
+                    colors.Add(((Color)converter.ConvertFromInvariantString(color.ToString())).ToSKColor());
+                
                 // create the gradient shader between Colors
                 using (var shader = SKShader.CreateLinearGradient(
                     new SKPoint(0, 0),
