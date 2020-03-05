@@ -63,7 +63,7 @@
                     PickedColorChanged="ColorPicker_PickedColorChanged"
                     PointerCircleBorderUnits="0.3"
                     PointerCircleDiameterUnits="0.7">
-                    <xfColorPickerControl:ColorPicker.ColorList>
+                    <xfColorPickerControl:ColorPicker.BaseColorList>
                         <x:Array Type="{x:Type x:String}">
                             <!--  Red  -->
                             <x:String>#ff0000</x:String>
@@ -80,7 +80,7 @@
                             <!--  Red  -->
                             <x:String>#ff0000</x:String>
                         </x:Array>
-                    </xfColorPickerControl:ColorPicker.ColorList>
+                    </xfColorPickerControl:ColorPicker.BaseColorList>
                 </xfColorPickerControl:ColorPicker>
             </StackLayout>
         </Frame>
