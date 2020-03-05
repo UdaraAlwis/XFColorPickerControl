@@ -20,8 +20,10 @@
         <Button
             x:Name="GoBackButton"
             Grid.Row="0"
+            BackgroundColor="Silver"
             Clicked="GoBackButton_Clicked"
-            Text="Back" />
+            Text="Back"
+            TextColor="White" />
 
         <Frame
             x:Name="SelectedColorDisplayFrame"
@@ -78,12 +80,16 @@
         <StackLayout Grid.Row="2">
             <Button
                 x:Name="SetHorizontalButton"
+                BackgroundColor="Silver"
                 Clicked="SetHorizontalButton_Clicked"
-                Text="Set Horizontal" />
+                Text="Set Horizontal"
+                TextColor="White" />
             <Button
                 x:Name="SetVerticalButton"
+                BackgroundColor="Silver"
                 Clicked="SetVerticalButton_Clicked"
-                Text="Set Vertical" />
+                Text="Set Vertical"
+                TextColor="White" />
         </StackLayout>
     </Grid>
 

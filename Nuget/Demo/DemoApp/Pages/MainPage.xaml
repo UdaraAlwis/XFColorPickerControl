@@ -90,22 +90,26 @@
                 x:Name="GoToColorListDirectionDemoPage"
                 BackgroundColor="Silver"
                 Clicked="GoToColorListDirectionDemoPage_Clicked"
-                Text="ColorListDirection" />
+                Text="ColorListDirection"
+                TextColor="White" />
             <Button
                 x:Name="GoToGradientColorStyleDemoPage"
                 BackgroundColor="Silver"
                 Clicked="GoToGradientColorStyleDemoPage_Clicked"
-                Text="GradientColorStyle" />
+                Text="GradientColorStyle"
+                TextColor="White" />
             <Button
                 x:Name="GoToPointerCircleDemoPage"
                 BackgroundColor="Silver"
                 Clicked="GoToPointerCircleDemoPage_Clicked"
-                Text="PointerCircleStyle" />
+                Text="PointerCircleStyle"
+                TextColor="White" />
             <Button
                 x:Name="GoToColorListDemoPage"
                 BackgroundColor="Silver"
                 Clicked="GoToColorListDemoPage_Clicked"
-                Text="ColorList" />
+                Text="ColorList"
+                TextColor="White" />
         </StackLayout>
 
     </Grid>
