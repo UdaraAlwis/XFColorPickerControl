@@ -31,6 +31,11 @@ namespace DemoApp.Pages
                 SelectedColorValueLabel.TextColor = Color.SlateGray;
         }
 
+        private void GoToBaseColorListDemoPage_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new BaseColorListPage());
+        }
+
         private void GoToColorListDirectionDemoPage_Clicked(object sender, EventArgs e)
         {
             Navigation.PushModalAsync(new ColorListDirectionPage());
@@ -42,11 +47,6 @@ namespace DemoApp.Pages
         }
 
         private void GoToPointerCircleDemoPage_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
-        private void GoToColorListDemoPage_Clicked(object sender, EventArgs e)
         {
 
         }

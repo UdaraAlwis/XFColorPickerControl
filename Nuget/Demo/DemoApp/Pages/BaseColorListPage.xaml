@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="DemoApp.Pages.MainPage"
+    x:Class="DemoApp.Pages.BaseColorListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -17,21 +17,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackLayout
+        <Button
+            x:Name="GoBackButton"
             Grid.Row="0"
-            Orientation="Vertical"
-            VerticalOptions="Start">
-            <Label
-                Grid.Row="0"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                Text="Welcome to Xamarin.Forms!" />
-            <Label
-                Grid.Row="1"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                Text="Udara.Plugin.XFColorPickerControl Demo App" />
-        </StackLayout>
+            BackgroundColor="Silver"
+            Clicked="GoBackButton_Clicked"
+            Text="Back"
+            TextColor="White" />
 
         <Frame
             x:Name="SelectedColorDisplayFrame"
@@ -85,33 +77,34 @@
             </StackLayout>
         </Frame>
 
-        <StackLayout Grid.Row="2" VerticalOptions="EndAndExpand">
+        <StackLayout Grid.Row="2">
             <Button
-                x:Name="GoToBaseColorListDemoPage"
+                x:Name="SetColorListDefault"
                 BackgroundColor="Silver"
-                Clicked="GoToBaseColorListDemoPage_Clicked"
-                Text="BaseColorList"
+                Clicked="SetColorSetDefault_Clicked"
+                Text="Default Base Color List"
                 TextColor="White" />
-            <Button
-                x:Name="GoToColorListDirectionDemoPage"
-                BackgroundColor="Silver"
-                Clicked="GoToColorListDirectionDemoPage_Clicked"
-                Text="ColorListDirection"
-                TextColor="White" />
-            <Button
-                x:Name="GoToGradientColorStyleDemoPage"
-                BackgroundColor="Silver"
-                Clicked="GoToGradientColorStyleDemoPage_Clicked"
-                Text="GradientColorStyle"
-                TextColor="White" />
-            <Button
-                x:Name="GoToPointerCircleDemoPage"
-                BackgroundColor="Silver"
-                Clicked="GoToPointerCircleDemoPage_Clicked"
-                Text="PointerCircleStyle"
-                TextColor="White" />
+            <StackLayout Orientation="Horizontal">
+                <Button
+                    x:Name="SetColorSet1Button"
+                    BackgroundColor="Silver"
+                    Clicked="SetColorSet1Button_Clicked"
+                    Text="Custom Set 1"
+                    TextColor="White" />
+                <Button
+                    x:Name="SetColorSet2Button"
+                    BackgroundColor="Silver"
+                    Clicked="SetColorSet2Button_Clicked"
+                    Text="Custom Set 2"
+                    TextColor="White" />
+                <Button
+                    x:Name="SetColorSet3Button"
+                    BackgroundColor="Silver"
+                    Clicked="SetColorSet3Button_Clicked"
+                    Text="Custom Set 3"
+                    TextColor="White" />
+            </StackLayout>
         </StackLayout>
-
     </Grid>
 
 </ContentPage>

@@ -65,7 +65,14 @@ namespace Udara.Plugin.XFColorPickerControl
 					new Color(255, 0, 255).ToHex(), // Fuchsia
 					new Color(255, 0, 0).ToHex(), // Red
 				},
-                BindingMode.OneTime, null);
+                BindingMode.Default, null,
+                propertyChanged: (bindable, value, newValue) =>
+                {
+                    if (newValue != null)
+                        ((ColorPicker)bindable).SkCanvasView.InvalidateSurface();
+                    else
+                        ((ColorPicker)bindable).BaseColorList = default;
+                });
 
         /// <summary>
         /// Sets the Base Color List
@@ -162,7 +169,7 @@ namespace Udara.Plugin.XFColorPickerControl
                 System.Collections.Generic.List<SKColor> colors = new System.Collections.Generic.List<SKColor>();
                 foreach (var color in BaseColorList)
                     colors.Add(((Color)converter.ConvertFromInvariantString(color.ToString())).ToSKColor());
-                
+
                 // create the gradient shader between Colors
                 using (var shader = SKShader.CreateLinearGradient(
                     new SKPoint(0, 0),
