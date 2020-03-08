@@ -41,9 +41,9 @@ namespace DemoApp.Pages
             Navigation.PushModalAsync(new ColorFlowDirectionPage());
         }
 
-        private void GoToGradientColorStyleDemoPage_Clicked(object sender, EventArgs e)
+        private void GoToColorSpectrumStyleDemoPage_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new GradientColorStylePage());
+            Navigation.PushModalAsync(new ColorSpectrumStylePage());
         }
 
         private void GoToPointerCircleDemoPage_Clicked(object sender, EventArgs e)

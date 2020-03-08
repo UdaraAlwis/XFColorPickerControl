@@ -57,7 +57,7 @@
                 <xfColorPickerControl:ColorPicker
                     x:Name="ColorPicker"
                     ColorFlowDirection="Horizontal"
-                    GradientColorStyle="LightToColorsToDarkStyle"
+                    ColorSpectrumStyle="TintToHueToShadeStyle"
                     HeightRequest="200"
                     HorizontalOptions="FillAndExpand"
                     PickedColorChanged="ColorPicker_PickedColorChanged"
@@ -99,10 +99,10 @@
                 Text="ColorFlowDirection"
                 TextColor="White" />
             <Button
-                x:Name="GoToGradientColorStyleDemoPage"
+                x:Name="GoToColorSpectrumStyleDemoPage"
                 BackgroundColor="Silver"
-                Clicked="GoToGradientColorStyleDemoPage_Clicked"
-                Text="GradientColorStyle"
+                Clicked="GoToColorSpectrumStyleDemoPage_Clicked"
+                Text="ColorSpectrumStyle"
                 TextColor="White" />
             <Button
                 x:Name="GoToPointerCircleDemoPage"

@@ -32,21 +32,28 @@ namespace Udara.Plugin.XFColorPickerControl
         }
 
 
-        public static readonly BindableProperty GradientColorStyleProperty
+        public static readonly BindableProperty ColorSpectrumStyleProperty
             = BindableProperty.Create(
-                nameof(GradientColorStyle),
-                typeof(GradientColorStyle),
+                nameof(ColorSpectrumStyle),
+                typeof(ColorSpectrumStyle),
                 typeof(ColorPicker),
-                GradientColorStyle.ColorsToDarkStyle,
-                BindingMode.OneTime, null);
+                ColorSpectrumStyle.HueToShadeStyle,
+                BindingMode.Default, null,
+                propertyChanged: (bindable, value, newValue) =>
+                {
+                    if (newValue != null)
+                        ((ColorPicker)bindable).SkCanvasView.InvalidateSurface();
+                    else
+                        ((ColorPicker)bindable).ColorSpectrumStyle = default;
+                });
 
         /// <summary>
         /// Set the Color Spectrum Gradient Style
         /// </summary>
-        public GradientColorStyle GradientColorStyle
+        public ColorSpectrumStyle ColorSpectrumStyle
         {
-            get { return (GradientColorStyle)GetValue(GradientColorStyleProperty); }
-            set { SetValue(GradientColorStyleProperty, value); }
+            get { return (ColorSpectrumStyle)GetValue(ColorSpectrumStyleProperty); }
+            set { SetValue(ColorSpectrumStyleProperty, value); }
         }
 
 
@@ -199,7 +206,7 @@ namespace Udara.Plugin.XFColorPickerControl
                 paint.IsAntialias = true;
 
                 // Initiate gradient color spectrum style layer
-                var colors = GetSecondaryLayerColors();
+                var colors = GetSecondaryLayerColors(ColorSpectrumStyle);
 
                 // create the gradient shader between secondary colors
                 using (var shader = SKShader.CreateLinearGradient(
@@ -302,16 +309,16 @@ namespace Udara.Plugin.XFColorPickerControl
             }
         }
 
-        private SKColor[] GetSecondaryLayerColors()
+        private SKColor[] GetSecondaryLayerColors(ColorSpectrumStyle colorSpectrumStyle)
         {
-            if (GradientColorStyle == GradientColorStyle.ColorsOnlyStyle)
+            if (colorSpectrumStyle == ColorSpectrumStyle.HueOnlyStyle)
             {
                 return new SKColor[]
                 {
                         SKColors.Transparent
                 };
             }
-            else if (GradientColorStyle == GradientColorStyle.ColorsToDarkStyle)
+            else if (colorSpectrumStyle == ColorSpectrumStyle.HueToShadeStyle)
             {
                 return new SKColor[]
                 {
@@ -319,7 +326,7 @@ namespace Udara.Plugin.XFColorPickerControl
                         SKColors.Black
                 };
             }
-            else if (GradientColorStyle == GradientColorStyle.DarkToColorsStyle)
+            else if (colorSpectrumStyle == ColorSpectrumStyle.ShadeToHueStyle)
             {
                 return new SKColor[]
                 {
@@ -327,7 +334,7 @@ namespace Udara.Plugin.XFColorPickerControl
                         SKColors.Transparent
                 };
             }
-            else if (GradientColorStyle == GradientColorStyle.ColorsToLightStyle)
+            else if (colorSpectrumStyle == ColorSpectrumStyle.HueToTintStyle)
             {
                 return new SKColor[]
                 {
@@ -335,7 +342,7 @@ namespace Udara.Plugin.XFColorPickerControl
                         SKColors.White
                 };
             }
-            else if (GradientColorStyle == GradientColorStyle.LightToColorsStyle)
+            else if (colorSpectrumStyle == ColorSpectrumStyle.TintToHueStyle)
             {
                 return new SKColor[]
                 {
@@ -343,7 +350,7 @@ namespace Udara.Plugin.XFColorPickerControl
                         SKColors.Transparent
                 };
             }
-            else if (GradientColorStyle == GradientColorStyle.LightToColorsToDarkStyle)
+            else if (colorSpectrumStyle == ColorSpectrumStyle.TintToHueToShadeStyle)
             {
                 return new SKColor[]
                 {
@@ -352,7 +359,7 @@ namespace Udara.Plugin.XFColorPickerControl
                         SKColors.Black
                 };
             }
-            else if (GradientColorStyle == GradientColorStyle.DarkToColorsToLightStyle)
+            else if (colorSpectrumStyle == ColorSpectrumStyle.ShadeToHueToTintStyle)
             {
                 return new SKColor[]
                 {
@@ -372,15 +379,15 @@ namespace Udara.Plugin.XFColorPickerControl
         }
     }
 
-    public enum GradientColorStyle
+    public enum ColorSpectrumStyle
     {
-        ColorsOnlyStyle,
-        ColorsToDarkStyle,
-        DarkToColorsStyle,
-        ColorsToLightStyle,
-        LightToColorsStyle,
-        LightToColorsToDarkStyle,
-        DarkToColorsToLightStyle
+        HueOnlyStyle,
+        HueToShadeStyle,
+        ShadeToHueStyle,
+        HueToTintStyle,
+        TintToHueStyle,
+        TintToHueToShadeStyle,
+        ShadeToHueToTintStyle
     }
 
     public enum ColorFlowDirection

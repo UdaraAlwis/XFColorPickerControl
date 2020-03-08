@@ -49,7 +49,7 @@
                 <xfColorPickerControl:ColorPicker
                     x:Name="ColorPicker"
                     ColorFlowDirection="Horizontal"
-                    GradientColorStyle="LightToColorsToDarkStyle"
+                    ColorSpectrumStyle="TintToHueToShadeStyle"
                     HeightRequest="200"
                     HorizontalOptions="FillAndExpand"
                     PickedColorChanged="ColorPicker_PickedColorChanged"

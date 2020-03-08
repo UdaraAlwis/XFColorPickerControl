@@ -8,24 +8,24 @@ using Udara.Plugin.XFColorPickerControl;
 namespace DemoApp.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GradientColorStylePage : ContentPage
+    public partial class ColorSpectrumStylePage : ContentPage
     {
-        public GradientColorStylePage()
+        public ColorSpectrumStylePage()
         {
             InitializeComponent();
 
             GradientColorStylePicker.ItemsSource =
-                new List<GradientColorStyle>()
+                new List<ColorSpectrumStyle>()
                 {
-                    GradientColorStyle.ColorsOnlyStyle,
-                    GradientColorStyle.ColorsToDarkStyle,
-                    GradientColorStyle.DarkToColorsStyle,
-                    GradientColorStyle.ColorsToLightStyle,
-                    GradientColorStyle.LightToColorsStyle,
-                    GradientColorStyle.LightToColorsToDarkStyle,
-                    GradientColorStyle.DarkToColorsToLightStyle,
+                    ColorSpectrumStyle.HueOnlyStyle,
+                    ColorSpectrumStyle.HueToShadeStyle,
+                    ColorSpectrumStyle.ShadeToHueStyle,
+                    ColorSpectrumStyle.HueToTintStyle,
+                    ColorSpectrumStyle.TintToHueStyle,
+                    ColorSpectrumStyle.TintToHueToShadeStyle,
+                    ColorSpectrumStyle.ShadeToHueToTintStyle,
                 };
-            GradientColorStylePicker.SelectedItem = GradientColorStyle.LightToColorsToDarkStyle;
+            GradientColorStylePicker.SelectedItem = ColorSpectrumStyle.TintToHueToShadeStyle;
         }
 
         private void ColorPicker_PickedColorChanged(object sender, Color colorPicked)
@@ -43,7 +43,7 @@ namespace DemoApp.Pages
         private void GradientColorStylePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (GradientColorStylePicker.SelectedItem != null)
-                ColorPicker.GradientColorStyle = (GradientColorStyle)GradientColorStylePicker.SelectedItem;
+                ColorPicker.ColorSpectrumStyle = (ColorSpectrumStyle)GradientColorStylePicker.SelectedItem;
         }
 
         private void GoBackButton_Clicked(object sender, System.EventArgs e)
