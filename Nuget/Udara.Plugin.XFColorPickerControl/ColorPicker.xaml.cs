@@ -84,21 +84,27 @@ namespace Udara.Plugin.XFColorPickerControl
         }
 
 
-        public static readonly BindableProperty ColorListDirectionProperty
+        public static readonly BindableProperty ColorFlowDirectionProperty
             = BindableProperty.Create(
-                nameof(ColorListDirection),
-                typeof(ColorListDirection),
+                nameof(ColorFlowDirection),
+                typeof(ColorFlowDirection),
                 typeof(ColorPicker),
-                ColorListDirection.Horizontal,
-                BindingMode.OneTime);
+                ColorFlowDirection.Horizontal,
+                BindingMode.Default, null,
+                propertyChanged: (bindable, value, newValue) =>
+                {
+                    if (newValue != null)
+                        ((ColorPicker)bindable).SkCanvasView.InvalidateSurface();
+                });
 
         /// <summary>
         /// Sets the Color List flow Direction
+        /// Horizontal or Verical
         /// </summary>
-        public ColorListDirection ColorListDirection
+        public ColorFlowDirection ColorFlowDirection
         {
-            get { return (ColorListDirection)GetValue(ColorListDirectionProperty); }
-            set { SetValue(ColorListDirectionProperty, value); }
+            get { return (ColorFlowDirection)GetValue(ColorFlowDirectionProperty); }
+            set { SetValue(ColorFlowDirectionProperty, value); }
         }
 
 
@@ -165,6 +171,7 @@ namespace Udara.Plugin.XFColorPickerControl
             {
                 paint.IsAntialias = true;
 
+                // Initiate the base Color list
                 ColorTypeConverter converter = new ColorTypeConverter();
                 System.Collections.Generic.List<SKColor> colors = new System.Collections.Generic.List<SKColor>();
                 foreach (var color in BaseColorList)
@@ -173,7 +180,7 @@ namespace Udara.Plugin.XFColorPickerControl
                 // create the gradient shader between Colors
                 using (var shader = SKShader.CreateLinearGradient(
                     new SKPoint(0, 0),
-                    ColorListDirection == ColorListDirection.Horizontal ?
+                    ColorFlowDirection == ColorFlowDirection.Horizontal ?
                         new SKPoint(skCanvasWidth, 0) : new SKPoint(0, skCanvasHeight),
                     colors.ToArray(),
                     null,
@@ -184,18 +191,18 @@ namespace Udara.Plugin.XFColorPickerControl
                 }
             }
 
-            // Draw darker gradient spectrum
+            // Draw secondary gradient color spectrum
             using (var paint = new SKPaint())
             {
                 paint.IsAntialias = true;
 
-                // Initiate the darkened primary color list
-                var colors = GetGradientOrder();
+                // Initiate gradient color spectrum style layer
+                var colors = GetSecondaryLayerColors();
 
                 // create the gradient shader 
                 using (var shader = SKShader.CreateLinearGradient(
                     new SKPoint(0, 0),
-                    ColorListDirection == ColorListDirection.Horizontal ?
+                    ColorFlowDirection == ColorFlowDirection.Horizontal ?
                         new SKPoint(0, skCanvasHeight) : new SKPoint(skCanvasWidth, 0),
                     colors,
                     null,
@@ -293,7 +300,7 @@ namespace Udara.Plugin.XFColorPickerControl
             }
         }
 
-        private SKColor[] GetGradientOrder()
+        private SKColor[] GetSecondaryLayerColors()
         {
             if (GradientColorStyle == GradientColorStyle.ColorsOnlyStyle)
             {
@@ -374,7 +381,7 @@ namespace Udara.Plugin.XFColorPickerControl
         DarkToColorsToLightStyle
     }
 
-    public enum ColorListDirection
+    public enum ColorFlowDirection
     {
         Horizontal,
         Vertical

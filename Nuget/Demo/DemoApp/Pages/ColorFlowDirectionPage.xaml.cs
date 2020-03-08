@@ -6,9 +6,9 @@ using Xamarin.Forms.Xaml;
 namespace DemoApp.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ColorListDirectionPage : ContentPage
+    public partial class ColorFlowDirectionPage : ContentPage
     {
-        public ColorListDirectionPage()
+        public ColorFlowDirectionPage()
         {
             InitializeComponent();
         }
@@ -27,14 +27,14 @@ namespace DemoApp.Pages
 
         private void SetHorizontalButton_Clicked(object sender, System.EventArgs e)
         {
-            ColorPicker.ColorListDirection =
-                Udara.Plugin.XFColorPickerControl.ColorListDirection.Horizontal;
+            ColorPicker.ColorFlowDirection =
+                Udara.Plugin.XFColorPickerControl.ColorFlowDirection.Horizontal;
         }
 
         private void SetVerticalButton_Clicked(object sender, System.EventArgs e)
         {
-            ColorPicker.ColorListDirection =
-                Udara.Plugin.XFColorPickerControl.ColorListDirection.Vertical;
+            ColorPicker.ColorFlowDirection =
+                Udara.Plugin.XFColorPickerControl.ColorFlowDirection.Vertical;
         }
 
         private void GoBackButton_Clicked(object sender, System.EventArgs e)

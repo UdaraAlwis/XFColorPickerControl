@@ -36,9 +36,9 @@ namespace DemoApp.Pages
             Navigation.PushModalAsync(new BaseColorListPage());
         }
 
-        private void GoToColorListDirectionDemoPage_Clicked(object sender, EventArgs e)
+        private void GoToColorFlowDirectionDemoPage_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new ColorListDirectionPage());
+            Navigation.PushModalAsync(new ColorFlowDirectionPage());
         }
 
         private void GoToGradientColorStyleDemoPage_Clicked(object sender, EventArgs e)

@@ -56,7 +56,7 @@
                     VerticalTextAlignment="Center" />
                 <xfColorPickerControl:ColorPicker
                     x:Name="ColorPicker"
-                    ColorListDirection="Horizontal"
+                    ColorFlowDirection="Horizontal"
                     GradientColorStyle="LightToColorsToDarkStyle"
                     HeightRequest="200"
                     HorizontalOptions="FillAndExpand"
@@ -93,10 +93,10 @@
                 Text="BaseColorList"
                 TextColor="White" />
             <Button
-                x:Name="GoToColorListDirectionDemoPage"
+                x:Name="GoToColorFlowDirectionDemoPage"
                 BackgroundColor="Silver"
-                Clicked="GoToColorListDirectionDemoPage_Clicked"
-                Text="ColorListDirection"
+                Clicked="GoToColorFlowDirectionDemoPage_Clicked"
+                Text="ColorFlowDirection"
                 TextColor="White" />
             <Button
                 x:Name="GoToGradientColorStyleDemoPage"

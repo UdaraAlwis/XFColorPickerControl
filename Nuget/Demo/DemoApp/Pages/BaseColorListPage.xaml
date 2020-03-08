@@ -48,7 +48,7 @@
                     VerticalTextAlignment="Center" />
                 <xfColorPickerControl:ColorPicker
                     x:Name="ColorPicker"
-                    ColorListDirection="Horizontal"
+                    ColorFlowDirection="Horizontal"
                     GradientColorStyle="LightToColorsToDarkStyle"
                     HeightRequest="200"
                     HorizontalOptions="FillAndExpand"

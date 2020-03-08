@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="DemoApp.Pages.ColorListDirectionPage"
+    x:Class="DemoApp.Pages.ColorFlowDirectionPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -48,7 +48,7 @@
                     VerticalTextAlignment="Center" />
                 <xfColorPickerControl:ColorPicker
                     x:Name="ColorPicker"
-                    ColorListDirection="Horizontal"
+                    ColorFlowDirection="Horizontal"
                     GradientColorStyle="LightToColorsToDarkStyle"
                     HeightRequest="200"
                     HorizontalOptions="FillAndExpand"
