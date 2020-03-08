@@ -95,6 +95,8 @@ namespace Udara.Plugin.XFColorPickerControl
                 {
                     if (newValue != null)
                         ((ColorPicker)bindable).SkCanvasView.InvalidateSurface();
+                    else
+                        ((ColorPicker)bindable).ColorFlowDirection = default;
                 });
 
         /// <summary>
@@ -177,7 +179,7 @@ namespace Udara.Plugin.XFColorPickerControl
                 foreach (var color in BaseColorList)
                     colors.Add(((Color)converter.ConvertFromInvariantString(color.ToString())).ToSKColor());
 
-                // create the gradient shader between Colors
+                // create the gradient shader between base Colors
                 using (var shader = SKShader.CreateLinearGradient(
                     new SKPoint(0, 0),
                     ColorFlowDirection == ColorFlowDirection.Horizontal ?
@@ -199,7 +201,7 @@ namespace Udara.Plugin.XFColorPickerControl
                 // Initiate gradient color spectrum style layer
                 var colors = GetSecondaryLayerColors();
 
-                // create the gradient shader 
+                // create the gradient shader between secondary colors
                 using (var shader = SKShader.CreateLinearGradient(
                     new SKPoint(0, 0),
                     ColorFlowDirection == ColorFlowDirection.Horizontal ?
