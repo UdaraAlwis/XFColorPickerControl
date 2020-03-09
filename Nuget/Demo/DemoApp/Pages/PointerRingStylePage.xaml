@@ -80,18 +80,6 @@
         </Frame>
 
         <StackLayout Grid.Row="2">
-            <!--<Button
-                x:Name="SetHorizontalButton"
-                BackgroundColor="Silver"
-                Clicked="SetHorizontalButton_Clicked"
-                Text="Set Horizontal"
-                TextColor="White" />
-            <Button
-                x:Name="SetVerticalButton"
-                BackgroundColor="Silver"
-                Clicked="SetVerticalButton_Clicked"
-                Text="Set Vertical"
-                TextColor="White" />-->
 
             <Label FontSize="Medium" Text="Pointer Ring Diameter:" />
             <Slider
