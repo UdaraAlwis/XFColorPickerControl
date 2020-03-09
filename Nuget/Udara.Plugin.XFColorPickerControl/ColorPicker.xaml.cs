@@ -16,6 +16,11 @@ namespace Udara.Plugin.XFColorPickerControl
         /// </summary>
         public event EventHandler<Color> PickedColorChanged;
 
+        /// <summary>
+        /// Occurs when the Picked Color changes
+        /// </summary>
+        public event EventHandler<(double, double)> PickerRingPositionChanged;
+
         public static readonly BindableProperty PickedColorProperty
             = BindableProperty.Create(
                 nameof(PickedColor),
@@ -157,27 +162,21 @@ namespace Udara.Plugin.XFColorPickerControl
         }
 
 
-
-        public static readonly BindableProperty PointerRingXUnitsProperty
+        public static readonly BindableProperty PointerInitPositionXUnitsProperty
             = BindableProperty.Create(
-                nameof(PointerRingXUnits),
+                nameof(PointerInitPositionXUnits),
                 typeof(double),
                 typeof(ColorPicker),
                 0.5,
-                BindingMode.Default, null,
+                BindingMode.OneTime, null,
                 propertyChanged: (bindable, value, newValue) =>
                 {
-                    //if (newValue != null && 
-                    //(((ColorPicker)bindable).SkCanvasView).Width > 0)
-                    //{
-                        //var x = ((float)(((ColorPicker)bindable).SkCanvasView).Width * (float)newValue);
-                        //var y = ((float)(((ColorPicker)bindable).SkCanvasView).Height * (float)newValue);
-
-                        //((ColorPicker)bindable).SkCanvasView_OnTouch(null,
-                        //    new SKTouchEventArgs((long)0, SKTouchAction.Pressed, new SKPoint(x, y), true));
-                    //}
-                    //else
-                    //    ((ColorPicker)bindable).PointerRingXUnits = default;
+                    if (newValue != null)
+                    {
+                        ((ColorPicker)bindable).SetPickerPosition((double)newValue, ((ColorPicker)bindable).PointerInitPositionYUnits);
+                    }
+                    else
+                        ((ColorPicker)bindable).ColorFlowDirection = default;
                 });
 
         /// <summary>
@@ -185,35 +184,44 @@ namespace Udara.Plugin.XFColorPickerControl
         /// Value must be between 0-1
         /// Calculated against the View Canvas Width value
         /// </summary>
-        public double PointerRingXUnits
+        public double PointerInitPositionXUnits
         {
-            get { return (double)GetValue(PointerRingXUnitsProperty); }
-            set { SetValue(PointerRingXUnitsProperty, value); }
+            get { return (double)GetValue(PointerInitPositionXUnitsProperty); }
+            set { SetValue(PointerInitPositionXUnitsProperty, value); }
         }
 
 
-        public static readonly BindableProperty PointerRingYUnitsProperty
+        public static readonly BindableProperty PointerInitPositionYUnitsProperty
             = BindableProperty.Create(
-                nameof(PointerRingYUnits),
+                nameof(PointerInitPositionYUnits),
                 typeof(double),
                 typeof(ColorPicker),
                 0.5,
-                BindingMode.Default);
+                BindingMode.OneTime, null,
+                propertyChanged: (bindable, value, newValue) =>
+                {
+                    if (newValue != null)
+                    {
+                        ((ColorPicker) bindable).SetPickerPosition(((ColorPicker)bindable).PointerInitPositionXUnits, (double)newValue);
+                    }
+                    else
+                        ((ColorPicker)bindable).ColorFlowDirection = default;
+                });
 
         /// <summary>
         /// Sets the Picker Pointer Y position
         /// Value must be between 0-1
         /// Calculated against the View Canvas Width value
         /// </summary>
-        public double PointerRingYUnits
+        public double PointerInitPositionYUnits
         {
-            get { return (double)GetValue(PointerRingYUnitsProperty); }
-            set { SetValue(PointerRingYUnitsProperty, value); }
+            get { return (double)GetValue(PointerInitPositionYUnitsProperty); }
+            set { SetValue(PointerInitPositionYUnitsProperty, value); }
         }
 
 
         private SKPoint _lastTouchPoint = new SKPoint();
-        private bool _checkCustomPointerLocationSet = false;
+        private bool _checkPointerInitPositionDone = false;
 
         public ColorPicker()
         {
@@ -278,6 +286,16 @@ namespace Udara.Plugin.XFColorPickerControl
                 }
             }
 
+            if (!_checkPointerInitPositionDone)
+            {
+                var x = ((float)skCanvasWidth * (float)PointerInitPositionXUnits);
+                var y = ((float)skCanvasHeight * (float)PointerInitPositionYUnits);
+
+                _lastTouchPoint = new SKPoint(x, y);
+
+                _checkPointerInitPositionDone = true;
+            }
+
             // Picking the Pixel Color values on the Touch Point
 
             // Represent the color of the current Touch point
@@ -299,21 +317,6 @@ namespace Udara.Plugin.XFColorPickerControl
 
                 // access the color
                 touchPointColor = bitmap.GetPixel(0, 0);
-            }
-
-            if (!_checkCustomPointerLocationSet)
-            {
-                var x = ((float)(SkCanvasView).Width * (float)PointerRingXUnits);
-                var y = ((float)(SkCanvasView).Height * (float)PointerRingXUnits);
-
-                Random rand = new Random();
-
-                _lastTouchPoint = new SKPoint(x, y);
-
-                //SkCanvasView_OnTouch(null,
-                //    new SKTouchEventArgs((long)rand.Next(99999, 999999), SKTouchAction.Pressed, new SKPoint(x, y), true));
-
-                _checkCustomPointerLocationSet = true;
             }
 
             // Painting the Touch point
@@ -374,6 +377,9 @@ namespace Udara.Plugin.XFColorPickerControl
                 (e.Location.Y > 0 && e.Location.Y < canvasSize.Height))
             {
                 e.Handled = true;
+
+                PointerInitPositionXUnits = e.Location.X / canvasSize.Width;
+                PointerInitPositionYUnits = e.Location.Y / canvasSize.Height;
 
                 // update the Canvas as you wish
                 SkCanvasView.InvalidateSurface();
@@ -447,6 +453,18 @@ namespace Udara.Plugin.XFColorPickerControl
                     SKColors.Black
                 };
             }
+        }
+
+        private void SetPickerPosition(double xPositionUnits, double yPositionUnits)
+        {
+            PointerInitPositionXUnits = xPositionUnits;
+            PointerInitPositionYUnits = yPositionUnits;
+
+            var xPosition = SkCanvasView.CanvasSize.Width * xPositionUnits; // Calculate actual X Position
+            var yPosition = SkCanvasView.CanvasSize.Height * yPositionUnits; // Calculate actual Y Position
+
+            _lastTouchPoint = new SKPoint(Convert.ToSingle(xPosition), Convert.ToSingle(yPosition));
+            SkCanvasView.InvalidateSurface();
         }
     }
 

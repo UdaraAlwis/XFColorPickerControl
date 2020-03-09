@@ -46,9 +46,9 @@ namespace DemoApp.Pages
             Navigation.PushModalAsync(new ColorSpectrumStylePage());
         }
 
-        private void GoToPointerCircleDemoPage_Clicked(object sender, EventArgs e)
+        private void GoToPointerRingStyle_Clicked(object sender, EventArgs e)
         {
-
+            Navigation.PushModalAsync(new PointerRingStylePage());
         }
     }
 }

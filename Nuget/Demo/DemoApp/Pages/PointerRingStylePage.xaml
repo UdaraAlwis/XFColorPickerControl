@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="DemoApp.Pages.MainPage"
+    x:Class="DemoApp.Pages.PointerRingStylePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -17,21 +17,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackLayout
+        <Button
+            x:Name="GoBackButton"
             Grid.Row="0"
-            Orientation="Vertical"
-            VerticalOptions="Start">
-            <Label
-                Grid.Row="0"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                Text="Welcome to Xamarin.Forms!" />
-            <Label
-                Grid.Row="1"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                Text="Udara.Plugin.XFColorPickerControl Demo App" />
-        </StackLayout>
+            BackgroundColor="Silver"
+            Clicked="GoBackButton_Clicked"
+            Text="Back"
+            TextColor="White" />
 
         <Frame
             x:Name="SelectedColorDisplayFrame"
@@ -63,8 +55,8 @@
                     PickedColorChanged="ColorPicker_PickedColorChanged"
                     PointerCircleBorderUnits="0.3"
                     PointerCircleDiameterUnits="0.7"
-                    PointerInitPositionXUnits="0.6"
-                    PointerInitPositionYUnits="0.6">
+                    PointerInitPositionXUnits="0.3"
+                    PointerInitPositionYUnits="0.3">
                     <xfColorPickerControl:ColorPicker.BaseColorList>
                         <x:Array Type="{x:Type x:String}">
                             <!--  Red  -->
@@ -87,33 +79,30 @@
             </StackLayout>
         </Frame>
 
-        <StackLayout Grid.Row="2" VerticalOptions="EndAndExpand">
-            <Button
-                x:Name="GoToBaseColorListDemoPage"
+        <StackLayout Grid.Row="2">
+            <!--<Button
+                x:Name="SetHorizontalButton"
                 BackgroundColor="Silver"
-                Clicked="GoToBaseColorListDemoPage_Clicked"
-                Text="BaseColorList"
+                Clicked="SetHorizontalButton_Clicked"
+                Text="Set Horizontal"
                 TextColor="White" />
             <Button
-                x:Name="GoToColorFlowDirectionDemoPage"
+                x:Name="SetVerticalButton"
                 BackgroundColor="Silver"
-                Clicked="GoToColorFlowDirectionDemoPage_Clicked"
-                Text="ColorFlowDirection"
-                TextColor="White" />
-            <Button
-                x:Name="GoToColorSpectrumStyleDemoPage"
-                BackgroundColor="Silver"
-                Clicked="GoToColorSpectrumStyleDemoPage_Clicked"
-                Text="ColorSpectrumStyle"
-                TextColor="White" />
-            <Button
-                x:Name="PointerRingStyleDemoPage"
-                BackgroundColor="Silver"
-                Clicked="GoToPointerRingStyle_Clicked"
-                Text="PointerRingStyle"
-                TextColor="White" />
+                Clicked="SetVerticalButton_Clicked"
+                Text="Set Vertical"
+                TextColor="White" />-->
+            <Slider
+                x:Name="SliderX"
+                Maximum="1"
+                Minimum="0"
+                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerInitPositionXUnits}" />
+            <Slider
+                x:Name="SliderY"
+                Maximum="1"
+                Minimum="0"
+                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerInitPositionYUnits}" />
         </StackLayout>
-
     </Grid>
 
 </ContentPage>

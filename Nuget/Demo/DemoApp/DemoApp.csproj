@@ -26,6 +26,9 @@
     <Compile Update="Pages\ColorSpectrumStylePage.xaml.cs">
       <DependentUpon>ColorSpectrumStylePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\PointerRingStylePage.xaml.cs">
+      <DependentUpon>PointerRingStylePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +39,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\ColorSpectrumStylePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\PointerRingStylePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
