@@ -157,7 +157,63 @@ namespace Udara.Plugin.XFColorPickerControl
         }
 
 
+
+        public static readonly BindableProperty PointerRingXUnitsProperty
+            = BindableProperty.Create(
+                nameof(PointerRingXUnits),
+                typeof(double),
+                typeof(ColorPicker),
+                0.5,
+                BindingMode.Default, null,
+                propertyChanged: (bindable, value, newValue) =>
+                {
+                    //if (newValue != null && 
+                    //(((ColorPicker)bindable).SkCanvasView).Width > 0)
+                    //{
+                        //var x = ((float)(((ColorPicker)bindable).SkCanvasView).Width * (float)newValue);
+                        //var y = ((float)(((ColorPicker)bindable).SkCanvasView).Height * (float)newValue);
+
+                        //((ColorPicker)bindable).SkCanvasView_OnTouch(null,
+                        //    new SKTouchEventArgs((long)0, SKTouchAction.Pressed, new SKPoint(x, y), true));
+                    //}
+                    //else
+                    //    ((ColorPicker)bindable).PointerRingXUnits = default;
+                });
+
+        /// <summary>
+        /// Sets the Picker Pointer X position
+        /// Value must be between 0-1
+        /// Calculated against the View Canvas Width value
+        /// </summary>
+        public double PointerRingXUnits
+        {
+            get { return (double)GetValue(PointerRingXUnitsProperty); }
+            set { SetValue(PointerRingXUnitsProperty, value); }
+        }
+
+
+        public static readonly BindableProperty PointerRingYUnitsProperty
+            = BindableProperty.Create(
+                nameof(PointerRingYUnits),
+                typeof(double),
+                typeof(ColorPicker),
+                0.5,
+                BindingMode.Default);
+
+        /// <summary>
+        /// Sets the Picker Pointer Y position
+        /// Value must be between 0-1
+        /// Calculated against the View Canvas Width value
+        /// </summary>
+        public double PointerRingYUnits
+        {
+            get { return (double)GetValue(PointerRingYUnitsProperty); }
+            set { SetValue(PointerRingYUnitsProperty, value); }
+        }
+
+
         private SKPoint _lastTouchPoint = new SKPoint();
+        private bool _checkCustomPointerLocationSet = false;
 
         public ColorPicker()
         {
@@ -243,6 +299,21 @@ namespace Udara.Plugin.XFColorPickerControl
 
                 // access the color
                 touchPointColor = bitmap.GetPixel(0, 0);
+            }
+
+            if (!_checkCustomPointerLocationSet)
+            {
+                var x = ((float)(SkCanvasView).Width * (float)PointerRingXUnits);
+                var y = ((float)(SkCanvasView).Height * (float)PointerRingXUnits);
+
+                Random rand = new Random();
+
+                _lastTouchPoint = new SKPoint(x, y);
+
+                //SkCanvasView_OnTouch(null,
+                //    new SKTouchEventArgs((long)rand.Next(99999, 999999), SKTouchAction.Pressed, new SKPoint(x, y), true));
+
+                _checkCustomPointerLocationSet = true;
             }
 
             // Painting the Touch point
