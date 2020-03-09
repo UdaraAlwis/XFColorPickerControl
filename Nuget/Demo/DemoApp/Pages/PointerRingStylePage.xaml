@@ -53,10 +53,10 @@
                     HeightRequest="200"
                     HorizontalOptions="FillAndExpand"
                     PickedColorChanged="ColorPicker_PickedColorChanged"
-                    PointerCircleBorderUnits="0.3"
-                    PointerCircleDiameterUnits="0.7"
-                    PointerInitPositionXUnits="0.3"
-                    PointerInitPositionYUnits="0.3">
+                    PointerPositionXUnits="0.7"
+                    PointerPositionYUnits="0.3"
+                    PointerRingBorderUnits="0.3"
+                    PointerRingDiameterUnits="0.7">
                     <xfColorPickerControl:ColorPicker.BaseColorList>
                         <x:Array Type="{x:Type x:String}">
                             <!--  Red  -->
@@ -92,16 +92,42 @@
                 Clicked="SetVerticalButton_Clicked"
                 Text="Set Vertical"
                 TextColor="White" />-->
+
+            <Label FontSize="Medium" Text="Pointer Ring Diameter:" />
+            <Slider
+                x:Name="SliderDiameter"
+                Maximum="1"
+                Minimum="0"
+                MinimumTrackColor="Silver"
+                ThumbColor="SlateGray"
+                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerRingDiameterUnits}" />
+
+            <Label FontSize="Medium" Text="Pointer Ring Border Thickness:" />
+            <Slider
+                x:Name="SliderBorder"
+                Maximum="1"
+                Minimum="0"
+                MinimumTrackColor="Silver"
+                ThumbColor="SlateGray"
+                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerRingBorderUnits}" />
+
+
+            <Label FontSize="Medium" Text="Pointer Ring Position: (X axis)" />
             <Slider
                 x:Name="SliderX"
                 Maximum="1"
                 Minimum="0"
-                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerInitPositionXUnits}" />
+                MinimumTrackColor="Silver"
+                ThumbColor="SlateGray"
+                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerPositionXUnits}" />
+            <Label FontSize="Medium" Text="Pointer Ring Position: (Y axis)" />
             <Slider
                 x:Name="SliderY"
                 Maximum="1"
                 Minimum="0"
-                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerInitPositionYUnits}" />
+                MinimumTrackColor="Silver"
+                ThumbColor="SlateGray"
+                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerPositionYUnits}" />
         </StackLayout>
     </Grid>
 

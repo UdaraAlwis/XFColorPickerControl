@@ -53,8 +53,8 @@
                     HeightRequest="200"
                     HorizontalOptions="FillAndExpand"
                     PickedColorChanged="ColorPicker_PickedColorChanged"
-                    PointerCircleBorderUnits="0.3"
-                    PointerCircleDiameterUnits="0.7">
+                    PointerRingBorderUnits="0.3"
+                    PointerRingDiameterUnits="0.7">
                     <xfColorPickerControl:ColorPicker.BaseColorList>
                         <x:Array Type="{x:Type x:String}">
                             <!--  Red  -->
