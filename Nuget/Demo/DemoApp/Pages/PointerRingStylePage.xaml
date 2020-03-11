@@ -115,7 +115,7 @@
                 Minimum="0"
                 MinimumTrackColor="Silver"
                 ThumbColor="SlateGray"
-                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerPositionYUnits}" />
+                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerRingPositionYUnits}" />
         </StackLayout>
     </Grid>
 
