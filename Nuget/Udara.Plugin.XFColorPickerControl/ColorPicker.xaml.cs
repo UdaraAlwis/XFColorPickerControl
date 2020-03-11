@@ -353,11 +353,11 @@ namespace Udara.Plugin.XFColorPickerControl
                 paintTouchPoint.Color = SKColors.White;
                 paintTouchPoint.IsAntialias = true;
 
-                var valueToCalcAgainst = (skCanvasWidth > skCanvasHeight) ? skCanvasWidth : skCanvasHeight;
+                var canvasLongestLength = (skCanvasWidth > skCanvasHeight) ? skCanvasWidth : skCanvasHeight;
 
-                var pointerCircleDiameterUnits = PointerRingDiameterUnits; // 0.6 (Default)
-                pointerCircleDiameterUnits = (float)pointerCircleDiameterUnits / 10f; //  calculate 1/10th of that value
-                var pointerCircleDiameter = (float)(valueToCalcAgainst * pointerCircleDiameterUnits);
+                var pointerRingDiameterUnitsScaled = (float)PointerRingDiameterUnits / 10f; // Calculate 1/10th of that value
+                var pointerCircleDiameter = (float)(canvasLongestLength 
+                                                    * pointerRingDiameterUnitsScaled);
 
                 // Outer circle of the Pointer (Ring)
                 skCanvas.DrawCircle(
@@ -368,9 +368,9 @@ namespace Udara.Plugin.XFColorPickerControl
                 // Draw another circle with picked color
                 paintTouchPoint.Color = touchPointColor;
 
-                var pointerCircleBorderWidthUnits = PointerRingBorderUnits; // 0.3 (Default)
-                var pointerCircleBorderWidth = (float)pointerCircleDiameter *
-                                                        (float)pointerCircleBorderWidthUnits; // Calculate against Pointer Circle
+                // Calculate against Pointer Circle
+                var pointerCircleBorderWidth = (float)pointerCircleDiameter 
+                                                            * (float)PointerRingBorderUnits; 
 
                 // Inner circle of the Pointer (Ring)
                 skCanvas.DrawCircle(
@@ -484,12 +484,12 @@ namespace Udara.Plugin.XFColorPickerControl
 
         private void SetPointerRingPosition(double xPositionUnits, double yPositionUnits)
         {
-            PointerRingPositionXUnits = xPositionUnits;
-            PointerRingPositionYUnits = yPositionUnits;
+            var xPosition = SkCanvasView.CanvasSize.Width
+                            * xPositionUnits; // Calculate actual X Position
+            var yPosition = SkCanvasView.CanvasSize.Height
+                            * yPositionUnits; // Calculate actual Y Position
 
-            var xPosition = SkCanvasView.CanvasSize.Width * xPositionUnits; // Calculate actual X Position
-            var yPosition = SkCanvasView.CanvasSize.Height * yPositionUnits; // Calculate actual Y Position
-
+            // Update as last touch Position on Canvas
             _lastTouchPoint = new SKPoint(Convert.ToSingle(xPosition), Convert.ToSingle(yPosition));
             SkCanvasView.InvalidateSurface();
         }
