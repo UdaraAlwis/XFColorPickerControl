@@ -369,14 +369,14 @@ namespace Udara.Plugin.XFColorPickerControl
                 paintTouchPoint.Color = touchPointColor;
 
                 // Calculate against Pointer Circle
-                var pointerCircleBorderWidth = (float)pointerCircleDiameter 
-                                                            * (float)PointerRingBorderUnits; 
+                var pointerRingBorderUnitsScaled = (float)pointerCircleDiameter 
+                                                                * (float)PointerRingBorderUnits; 
 
                 // Inner circle of the Pointer (Ring)
                 skCanvas.DrawCircle(
                     _lastTouchPoint.X,
                     _lastTouchPoint.Y,
-                    ((pointerCircleDiameter - pointerCircleBorderWidth) / 2), paintTouchPoint);
+                    ((pointerCircleDiameter - pointerRingBorderUnitsScaled) / 2), paintTouchPoint);
             }
 
             // Set selected color
