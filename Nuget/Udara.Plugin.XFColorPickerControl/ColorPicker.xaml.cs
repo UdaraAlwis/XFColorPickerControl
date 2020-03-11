@@ -16,11 +16,6 @@ namespace Udara.Plugin.XFColorPickerControl
         /// </summary>
         public event EventHandler<Color> PickedColorChanged;
 
-        /// <summary>
-        /// Occurs when the Picked Color changes
-        /// </summary>
-        public event EventHandler<(double, double)> PickerRingPositionChanged;
-
         public static readonly BindableProperty PickedColorProperty
             = BindableProperty.Create(
                 nameof(PickedColor),
@@ -128,7 +123,11 @@ namespace Udara.Plugin.XFColorPickerControl
                 typeof(double),
                 typeof(ColorPicker),
                 0.6,
-                BindingMode.Default, null,
+                BindingMode.Default,
+                validateValue: (bindable, value) =>
+                {
+                    return (((double)value > -1) && ((double)value <= 1));
+                },
                 propertyChanged: (bindable, value, newValue) =>
                 {
                     if (newValue != null)
@@ -155,7 +154,11 @@ namespace Udara.Plugin.XFColorPickerControl
                 typeof(double),
                 typeof(ColorPicker),
                 0.3,
-                BindingMode.Default, null,
+                BindingMode.Default,
+                validateValue: (bindable, value) =>
+                {
+                    return (((double)value > -1) && ((double)value <= 1));
+                },
                 propertyChanged: (bindable, value, newValue) =>
                 {
                     if (newValue != null)
@@ -182,12 +185,16 @@ namespace Udara.Plugin.XFColorPickerControl
                 typeof(double),
                 typeof(ColorPicker),
                 0.5,
-                BindingMode.OneTime, null,
+                BindingMode.OneTime,
+                validateValue: (bindable, value) =>
+                {
+                    return (((double)value > -1) && ((double)value <= 1));
+                },
                 propertyChanged: (bindable, value, newValue) =>
                 {
                     if (newValue != null)
                     {
-                        ((ColorPicker)bindable).SetPickerPosition(
+                        ((ColorPicker)bindable).SetPointerRingPosition(
                             (double)newValue, ((ColorPicker)bindable).PointerRingPositionYUnits);
                     }
                     else
@@ -212,12 +219,16 @@ namespace Udara.Plugin.XFColorPickerControl
                 typeof(double),
                 typeof(ColorPicker),
                 0.5,
-                BindingMode.OneTime, null,
+                BindingMode.OneTime, 
+                validateValue: (bindable, value) =>
+                {
+                    return (((double)value > -1) && ((double)value <= 1));
+                },
                 propertyChanged: (bindable, value, newValue) =>
                 {
                     if (newValue != null)
                     {
-                        ((ColorPicker) bindable).SetPickerPosition(
+                        ((ColorPicker) bindable).SetPointerRingPosition(
                             ((ColorPicker)bindable).PointerRingPositionXUnits, (double)newValue);
                     }
                     else
@@ -471,7 +482,7 @@ namespace Udara.Plugin.XFColorPickerControl
             }
         }
 
-        private void SetPickerPosition(double xPositionUnits, double yPositionUnits)
+        private void SetPointerRingPosition(double xPositionUnits, double yPositionUnits)
         {
             PointerRingPositionXUnits = xPositionUnits;
             PointerRingPositionYUnits = yPositionUnits;
