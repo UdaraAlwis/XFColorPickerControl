@@ -53,10 +53,10 @@
                     HeightRequest="200"
                     HorizontalOptions="FillAndExpand"
                     PickedColorChanged="ColorPicker_PickedColorChanged"
-                    PointerPositionXUnits="0.7"
-                    PointerPositionYUnits="0.3"
                     PointerRingBorderUnits="0.3"
-                    PointerRingDiameterUnits="0.7">
+                    PointerRingDiameterUnits="0.7"
+                    PointerRingPositionXUnits="0.7"
+                    PointerRingPositionYUnits="0.3">
                     <xfColorPickerControl:ColorPicker.BaseColorList>
                         <x:Array Type="{x:Type x:String}">
                             <!--  Red  -->
@@ -107,7 +107,7 @@
                 Minimum="0"
                 MinimumTrackColor="Silver"
                 ThumbColor="SlateGray"
-                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerPositionXUnits}" />
+                Value="{Binding Source={x:Reference ColorPicker}, Path=PointerRingPositionXUnits}" />
             <Label FontSize="Medium" Text="Pointer Ring Position: (Y axis)" />
             <Slider
                 x:Name="SliderY"
