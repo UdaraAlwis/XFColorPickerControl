@@ -187,7 +187,8 @@ namespace Udara.Plugin.XFColorPickerControl
                 {
                     if (newValue != null)
                     {
-                        ((ColorPicker)bindable).SetPickerPosition((double)newValue, ((ColorPicker)bindable).PointerPositionYUnits);
+                        ((ColorPicker)bindable).SetPickerPosition(
+                            (double)newValue, ((ColorPicker)bindable).PointerPositionYUnits);
                     }
                     else
                         ((ColorPicker)bindable).ColorFlowDirection = default;
@@ -216,7 +217,8 @@ namespace Udara.Plugin.XFColorPickerControl
                 {
                     if (newValue != null)
                     {
-                        ((ColorPicker) bindable).SetPickerPosition(((ColorPicker)bindable).PointerPositionXUnits, (double)newValue);
+                        ((ColorPicker) bindable).SetPickerPosition(
+                            ((ColorPicker)bindable).PointerPositionXUnits, (double)newValue);
                     }
                     else
                         ((ColorPicker)bindable).ColorFlowDirection = default;
