@@ -353,30 +353,34 @@ namespace Udara.Plugin.XFColorPickerControl
                 paintTouchPoint.Color = SKColors.White;
                 paintTouchPoint.IsAntialias = true;
 
-                var canvasLongestLength = (skCanvasWidth > skCanvasHeight) ? skCanvasWidth : skCanvasHeight;
+                var canvasLongestLength = (skCanvasWidth > skCanvasHeight) 
+                        ? skCanvasWidth : skCanvasHeight;
 
-                var pointerRingDiameterUnitsScaled = (float)PointerRingDiameterUnits / 10f; // Calculate 1/10th of that value
-                var pointerCircleDiameter = (float)(canvasLongestLength 
-                                                    * pointerRingDiameterUnitsScaled);
+                // Calculate 1/10th of the units value for scaling
+                var pointerRingDiameterUnitsScaled = (float)PointerRingDiameterUnits / 10f;
+                // Calculate against Longest Length of Canvas 
+                var pointerRingDiameter = (float)canvasLongestLength 
+                                                        * pointerRingDiameterUnitsScaled;
 
                 // Outer circle of the Pointer (Ring)
                 skCanvas.DrawCircle(
                     _lastTouchPoint.X,
                     _lastTouchPoint.Y,
-                    pointerCircleDiameter / 2, paintTouchPoint);
+                    (pointerRingDiameter / 2), paintTouchPoint);
 
                 // Draw another circle with picked color
                 paintTouchPoint.Color = touchPointColor;
 
                 // Calculate against Pointer Circle
-                var pointerRingBorderUnitsScaled = (float)pointerCircleDiameter 
+                var pointerRingInnerCircleDiameter = (float)pointerRingDiameter 
                                                                 * (float)PointerRingBorderUnits; 
 
                 // Inner circle of the Pointer (Ring)
                 skCanvas.DrawCircle(
                     _lastTouchPoint.X,
                     _lastTouchPoint.Y,
-                    ((pointerCircleDiameter - pointerRingBorderUnitsScaled) / 2), paintTouchPoint);
+                    ((pointerRingDiameter 
+                            - pointerRingInnerCircleDiameter) / 2), paintTouchPoint);
             }
 
             // Set selected color
