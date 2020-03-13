@@ -90,25 +90,25 @@
         <StackLayout Grid.Row="2" VerticalOptions="EndAndExpand">
             <Button
                 x:Name="GoToBaseColorListDemoPage"
-                BackgroundColor="Silver"
+                BackgroundColor="DarkGray"
                 Clicked="GoToBaseColorListDemoPage_Clicked"
                 Text="BaseColorList"
                 TextColor="White" />
             <Button
                 x:Name="GoToColorFlowDirectionDemoPage"
-                BackgroundColor="Silver"
+                BackgroundColor="DarkGray"
                 Clicked="GoToColorFlowDirectionDemoPage_Clicked"
                 Text="ColorFlowDirection"
                 TextColor="White" />
             <Button
                 x:Name="GoToColorSpectrumStyleDemoPage"
-                BackgroundColor="Silver"
+                BackgroundColor="DarkGray"
                 Clicked="GoToColorSpectrumStyleDemoPage_Clicked"
                 Text="ColorSpectrumStyle"
                 TextColor="White" />
             <Button
                 x:Name="PointerRingStyleDemoPage"
-                BackgroundColor="Silver"
+                BackgroundColor="DarkGray"
                 Clicked="GoToPointerRingStyle_Clicked"
                 Text="PointerRingStyle"
                 TextColor="White" />

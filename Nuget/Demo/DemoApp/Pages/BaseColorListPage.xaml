@@ -20,7 +20,7 @@
         <Button
             x:Name="GoBackButton"
             Grid.Row="0"
-            BackgroundColor="Silver"
+            BackgroundColor="DarkGray"
             Clicked="GoBackButton_Clicked"
             Text="Back"
             TextColor="White" />
@@ -80,27 +80,30 @@
         <StackLayout Grid.Row="2">
             <Button
                 x:Name="SetColorListDefault"
-                BackgroundColor="Silver"
+                BackgroundColor="DarkGray"
                 Clicked="SetColorSetDefault_Clicked"
                 Text="Default Base Color List"
                 TextColor="White" />
             <StackLayout Orientation="Horizontal">
                 <Button
                     x:Name="SetColorSet1Button"
-                    BackgroundColor="Silver"
+                    BackgroundColor="DarkGray"
                     Clicked="SetColorSet1Button_Clicked"
+                    HorizontalOptions="FillAndExpand"
                     Text="Custom Set 1"
                     TextColor="White" />
                 <Button
                     x:Name="SetColorSet2Button"
-                    BackgroundColor="Silver"
+                    BackgroundColor="DarkGray"
                     Clicked="SetColorSet2Button_Clicked"
+                    HorizontalOptions="FillAndExpand"
                     Text="Custom Set 2"
                     TextColor="White" />
                 <Button
                     x:Name="SetColorSet3Button"
-                    BackgroundColor="Silver"
+                    BackgroundColor="DarkGray"
                     Clicked="SetColorSet3Button_Clicked"
+                    HorizontalOptions="FillAndExpand"
                     Text="Custom Set 3"
                     TextColor="White" />
             </StackLayout>

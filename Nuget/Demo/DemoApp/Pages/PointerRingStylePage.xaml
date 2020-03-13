@@ -20,7 +20,7 @@
         <Button
             x:Name="GoBackButton"
             Grid.Row="0"
-            BackgroundColor="Silver"
+            BackgroundColor="DarkGray"
             Clicked="GoBackButton_Clicked"
             Text="Back"
             TextColor="White" />
@@ -86,7 +86,7 @@
                 x:Name="SliderDiameter"
                 Maximum="1"
                 Minimum="0"
-                MinimumTrackColor="Silver"
+                MinimumTrackColor="DarkGray"
                 ThumbColor="SlateGray"
                 Value="{Binding Source={x:Reference ColorPicker}, Path=PointerRingDiameterUnits}" />
 
@@ -95,7 +95,7 @@
                 x:Name="SliderBorder"
                 Maximum="1"
                 Minimum="0"
-                MinimumTrackColor="Silver"
+                MinimumTrackColor="DarkGray"
                 ThumbColor="SlateGray"
                 Value="{Binding Source={x:Reference ColorPicker}, Path=PointerRingBorderUnits}" />
 
@@ -105,7 +105,7 @@
                 x:Name="SliderX"
                 Maximum="1"
                 Minimum="0"
-                MinimumTrackColor="Silver"
+                MinimumTrackColor="DarkGray"
                 ThumbColor="SlateGray"
                 Value="{Binding Source={x:Reference ColorPicker}, Path=PointerRingPositionXUnits}" />
             <Label FontSize="Medium" Text="Pointer Ring Position: (Y axis)" />
@@ -113,7 +113,7 @@
                 x:Name="SliderY"
                 Maximum="1"
                 Minimum="0"
-                MinimumTrackColor="Silver"
+                MinimumTrackColor="DarkGray"
                 ThumbColor="SlateGray"
                 Value="{Binding Source={x:Reference ColorPicker}, Path=PointerRingPositionYUnits}" />
         </StackLayout>

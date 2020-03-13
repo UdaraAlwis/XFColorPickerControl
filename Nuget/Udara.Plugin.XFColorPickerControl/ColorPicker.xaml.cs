@@ -390,7 +390,7 @@ namespace Udara.Plugin.XFColorPickerControl
 
         private void SkCanvasView_OnTouch(object sender, SKTouchEventArgs e)
         {
-            // to fix the UWP touch bevaior
+            // to fix the UWP touch behavior
             if (Device.RuntimePlatform == Device.UWP)
             {
                 // avoid mouse over touch events
@@ -403,7 +403,7 @@ namespace Udara.Plugin.XFColorPickerControl
             var canvasSize = SkCanvasView.CanvasSize;
 
             // Check for each touch point XY position to be inside Canvas
-            // Ignore any Touch event ocurred outside the Canvas region 
+            // Ignore any Touch event occured outside the Canvas region 
             if ((e.Location.X > 0 && e.Location.X < canvasSize.Width) &&
                 (e.Location.Y > 0 && e.Location.Y < canvasSize.Height))
             {
@@ -419,70 +419,57 @@ namespace Udara.Plugin.XFColorPickerControl
 
         private SKColor[] GetSecondaryLayerColors(ColorSpectrumStyle colorSpectrumStyle)
         {
-            if (colorSpectrumStyle == ColorSpectrumStyle.HueOnlyStyle)
+            switch (colorSpectrumStyle)
             {
-                return new SKColor[]
-                {
+                case ColorSpectrumStyle.HueOnlyStyle:
+                    return new SKColor[]
+                    {
                         SKColors.Transparent
-                };
-            }
-            else if (colorSpectrumStyle == ColorSpectrumStyle.HueToShadeStyle)
-            {
-                return new SKColor[]
-                {
+                    };
+                case ColorSpectrumStyle.HueToShadeStyle:
+                    return new SKColor[]
+                    {
                         SKColors.Transparent,
                         SKColors.Black
-                };
-            }
-            else if (colorSpectrumStyle == ColorSpectrumStyle.ShadeToHueStyle)
-            {
-                return new SKColor[]
-                {
+                    };
+                case ColorSpectrumStyle.ShadeToHueStyle:
+                    return new SKColor[]
+                    {
                         SKColors.Black,
                         SKColors.Transparent
-                };
-            }
-            else if (colorSpectrumStyle == ColorSpectrumStyle.HueToTintStyle)
-            {
-                return new SKColor[]
-                {
+                    };
+                case ColorSpectrumStyle.HueToTintStyle:
+                    return new SKColor[]
+                    {
                         SKColors.Transparent,
                         SKColors.White
-                };
-            }
-            else if (colorSpectrumStyle == ColorSpectrumStyle.TintToHueStyle)
-            {
-                return new SKColor[]
-                {
+                    };
+                case ColorSpectrumStyle.TintToHueStyle:
+                    return new SKColor[]
+                    {
                         SKColors.White,
                         SKColors.Transparent
-                };
-            }
-            else if (colorSpectrumStyle == ColorSpectrumStyle.TintToHueToShadeStyle)
-            {
-                return new SKColor[]
-                {
+                    };
+                case ColorSpectrumStyle.TintToHueToShadeStyle:
+                    return new SKColor[]
+                    {
                         SKColors.White,
                         SKColors.Transparent,
                         SKColors.Black
-                };
-            }
-            else if (colorSpectrumStyle == ColorSpectrumStyle.ShadeToHueToTintStyle)
-            {
-                return new SKColor[]
-                {
+                    };
+                case ColorSpectrumStyle.ShadeToHueToTintStyle:
+                    return new SKColor[]
+                    {
                         SKColors.Black,
                         SKColors.Transparent,
                         SKColors.White
-                };
-            }
-            else
-            {
-                return new SKColor[]
-                {
-                    SKColors.Transparent,
-                    SKColors.Black
-                };
+                    };
+                default:
+                    return new SKColor[]
+                    {
+                        SKColors.Transparent,
+                        SKColors.Black
+                    };
             }
         }
 

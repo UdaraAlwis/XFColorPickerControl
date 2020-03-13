@@ -20,7 +20,7 @@
         <Button
             x:Name="GoBackButton"
             Grid.Row="0"
-            BackgroundColor="Silver"
+            BackgroundColor="DarkGray"
             Clicked="GoBackButton_Clicked"
             Text="Back"
             TextColor="White" />
