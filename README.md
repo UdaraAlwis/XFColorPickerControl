@@ -11,7 +11,7 @@ Setting it up:
 * Just install in your Xamarin.Forms PCL/.NET Standard  project, you're good to go!
 
 Blog post:
-https://theconfuzedsourcecode.wordpress.com/2020/02/26/i-built-an-interactive-color-picker-control-for-xamarin-forms/
+https://theconfuzedsourcecode.wordpress.com/2020/03/17/publishing-the-nuget-of-my-color-picker-control-for-xamarin-forms/
 
 
 ## XAML Set up
