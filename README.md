@@ -53,13 +53,12 @@ xmlns:xfsegmentedcontrol="clr-namespace:Udara.Plugin.XFColorPickerControl;assemb
 </xfColorPickerControl:ColorPicker>
 ```
 
-## SelectedTabIndexChanged Event
+## PickedColorChanged Event
 
 ```csharp
 private void ColorPicker_PickedColorChanged(object sender, Color colorPicked)
 {
-	// Use the selected color
-	ColorDisplayFrame.BackgroundColor = colorPicked;
+        // do whatever you want with the colorPicked value
 }
 ```
 
