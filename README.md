@@ -82,6 +82,9 @@ var colorPicked = ColorPicker.ColorPicked;
 ```
 
 ### ```BaseColorList```: 
+
+<img src="/screenshots/GIFS/BaseColorList.gif" height="180"/> 
+
 Change the available base Colors on the Color Spectrum, of the Color Picker. This will take a **List of strings included with Color names or hex values** which is held in an IEnumerable.
 #### XML:
 ```xml
@@ -131,7 +134,10 @@ ColorPicker.ColorFlowDirection =
     Udara.Plugin.XFColorPickerControl.ColorFlowDirection.Horizontal;
 ```
 
-### ```GradientColorStyle```: 
+### ```ColorSpectrumStyle```: 
+
+<img src="/screenshots/GIFS/ColorSpectrumStyle.gif" height="180"/> 
+
 Change the Color Spectrum gradient style, with the rendering combination of base colors (**Hue**), or lighter colors (**Tint**) or darker colors (**Shade**).
 
 Available Styles: 
@@ -158,6 +164,9 @@ ColorPicker.ColorSpectrumStyle =
 ```
 
 ### ```PointerRingDiameterUnits```:
+
+<img src="/screenshots/GIFS/PointerRingSize.gif" height="180"/> 
+
 Changes the Diameter size of the Pointer Ring on the Color Picker. It accepts values between 0 and 1, as a representation of numerical units which is compared to the 1/10th of the longest length of the Color Picker Canvas. By default this value is set to 0.6 units.
 
 #### XML:
@@ -174,6 +183,9 @@ ColorPicker.PointerRingDiameterUnits = 0.6;
 ```
 
 ### ```PointerRingBorderUnits```:
+
+<img src="/screenshots/GIFS/PointerRingSize.gif" height="180"/> 
+
 Changes the Border Thickness size of the Pointer Ring on the Color Picker. It accepts values between 0 and 1, as a representation of numerical units which is calculated against the diameter of the Pointer Ring. By default this value is set to 0.3 units.
 
 #### XML:
@@ -190,6 +202,9 @@ ColorPicker.PointerRingBorderUnits = 0.3;
 ```
 
 ### ```PointerRingPosition<X,Y>Units```:
+
+<img src="/screenshots/GIFS/PointerRingPosition.gif" height="180"/> 
+
 Changes the Pointer Ring’s position on the Color Picker Canvas programmatically. There are of two bindable properties **PointerRingPositionXUnits** and **PointerRingPositionYUnits**, which represents X and Y coordinates on the Color Picker Canvas. It accepts values between 0 and 1, as a presentation of numerical units which is calculated against the Color Picker Canvas’s actual pixel Width and Height. By default both the values are set to 0.5 units, which positions the Pointer Ring in the center of the Color Picker.
 
 #### XML:
