@@ -53,15 +53,6 @@ xmlns:xfsegmentedcontrol="clr-namespace:Udara.Plugin.XFColorPickerControl;assemb
 </xfColorPickerControl:ColorPicker>
 ```
 
-## PickedColorChanged Event
-
-```csharp
-private void ColorPicker_PickedColorChanged(object sender, Color colorPicked)
-{
-        // do whatever you want with the colorPicked value
-}
-```
-
 ## Bindable Properties
 
 ### ```ColorPicked```: 
