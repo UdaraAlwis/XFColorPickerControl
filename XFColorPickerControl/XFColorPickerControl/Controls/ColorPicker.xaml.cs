@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
@@ -27,9 +29,17 @@ namespace XFColorPickerControl.Controls
         public Color PickedColor
         {
             get { return (Color)GetValue(PickedColorProperty); }
-            private set { SetValue(PickedColorProperty, value); }
+            set 
+            {
+                if (!PickedColor.Equals(value))
+                {
+                    SetValue(PickedColorProperty, value);
+                    _lastTouchPoint = new SKPoint() { X = int.MaxValue, Y = int.MaxValue };
+                    SkCanvasView.InvalidateSurface();
+                    PickedColorChanged?.Invoke(this, PickedColor);
+                }
+            }
         }
-
 
         public static readonly BindableProperty GradientColorStyleProperty
             = BindableProperty.Create(
@@ -47,7 +57,6 @@ namespace XFColorPickerControl.Controls
             get { return (GradientColorStyle)GetValue(GradientColorStyleProperty); }
             set { SetValue(GradientColorStyleProperty, value); }
         }
-
 
         public static readonly BindableProperty ColorListProperty
             = BindableProperty.Create(
@@ -74,7 +83,6 @@ namespace XFColorPickerControl.Controls
             get { return (string[])GetValue(ColorListProperty); }
             set { SetValue(ColorListProperty, value); }
         }
-
 
         public static readonly BindableProperty ColorListDirectionProperty
             = BindableProperty.Create(
@@ -113,7 +121,6 @@ namespace XFColorPickerControl.Controls
             set { SetValue(PointerCircleDiameterUnitsProperty, value); }
         }
 
-
         public static readonly BindableProperty PointerCircleBorderUnitsProperty
             = BindableProperty.Create(
                 nameof(PointerCircleBorderUnits),
@@ -133,12 +140,24 @@ namespace XFColorPickerControl.Controls
             set { SetValue(PointerCircleBorderUnitsProperty, value); }
         }
 
-
-        private SKPoint _lastTouchPoint = new SKPoint();
+        private SKPoint _lastTouchPoint = new SKPoint() { X = int.MaxValue, Y = int.MaxValue};
 
         public ColorPicker()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// I found this algorythm at https://stackoverflow.com/a/33782458/648919 
+        /// It's simple enough but really effective!
+        /// </summary>
+        private double ColorDistance(SKColor c1, SKColor c2)
+        {
+            int rmean = (c1.Red + c2.Red) / 2;
+            int r = c1.Red - c2.Red;
+            int g = c1.Green - c2.Green;
+            int b = c1.Blue - c2.Blue;
+            return Math.Sqrt((((512 + rmean) * r * r) >> 8) + 4 * g * g + (((767 - rmean) * b * b) >> 8));
         }
 
         private void SkCanvasView_OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
@@ -199,7 +218,7 @@ namespace XFColorPickerControl.Controls
             // Picking the Pixel Color values on the Touch Point
 
             // Represent the color of the current Touch point
-            SKColor touchPointColor;
+            SKColor touchPointColor = SKColors.White;
 
             // Efficient and fast
             // https://forums.xamarin.com/discussion/92899/read-a-pixel-info-from-a-canvas
@@ -208,6 +227,70 @@ namespace XFColorPickerControl.Controls
             {
                 // get the pixel buffer for the bitmap
                 IntPtr dstpixels = bitmap.GetPixels();
+
+                // If color isn't set by touch, we need to find a color location on bitmap
+                if (_lastTouchPoint.X.Equals(int.MaxValue) && _lastTouchPoint.Y.Equals(int.MaxValue))
+                {
+                    // read the surface into the bitmap
+                    var res = skSurface.ReadPixels(skImageInfo, dstpixels, skImageInfo.RowBytes, 0, 0);
+                    touchPointColor = PickedColor.ToSKColor();
+                    var bpp = bitmap.BytesPerPixel;
+
+                    // Get rid of SKBitmap getters
+                    var pixels = new byte[bitmap.ByteCount];
+                    bitmap.Bytes.CopyTo(pixels, 0);
+
+                    // Let's try to find our color coordinates
+                    var exactMatch = false;
+                    var minDistance = double.MaxValue;
+
+                    for (int y = 0; y < skCanvasHeight; y++)
+                    {
+                        for (int x = 0; x < skCanvasWidth; x++)
+                        {
+                            var c = new SKColor(pixels[(y * skCanvasWidth + x) * bpp + 2],
+                                                pixels[(y * skCanvasWidth + x) * bpp + 1],
+                                                pixels[(y * skCanvasWidth + x) * bpp + 0]);
+
+                            // Check for exact color mach first
+                            if (c.Equals(touchPointColor))
+                            {
+                                _lastTouchPoint.X = x;
+                                _lastTouchPoint.Y = y;
+                                exactMatch = true;
+                                break;
+                            }
+                            else
+                            {
+                                var dist = ColorDistance(touchPointColor, c);
+                                if (dist < 5)
+                                {
+                                    _lastTouchPoint.X = x;
+                                    _lastTouchPoint.Y = y;
+                                    exactMatch = true;
+                                    break;
+                                }
+                                else if (minDistance > dist)
+                                {
+                                    minDistance = dist;
+                                    _lastTouchPoint.X = x;
+                                    _lastTouchPoint.Y = y;
+
+#if false
+                                    // Small optimization based on RL tests; btw, it works 
+                                    // fast enough even without these lines                                    if (minDistance < 15)
+                                    {
+                                        exactMatch = true;
+                                        break;
+                                    }
+#endif
+                                }
+                            }
+                        }
+
+                        if (exactMatch) break;
+                    }
+                }
 
                 // read the surface into the bitmap
                 skSurface.ReadPixels(skImageInfo,
@@ -253,8 +336,7 @@ namespace XFColorPickerControl.Controls
             }
 
             // Set selected color
-            PickedColor = touchPointColor.ToFormsColor();
-            PickedColorChanged?.Invoke(this, PickedColor);
+            SetValue(PickedColorProperty, touchPointColor.ToFormsColor());
         }
 
         private void SkCanvasView_OnTouch(object sender, SKTouchEventArgs e)
@@ -272,6 +354,7 @@ namespace XFColorPickerControl.Controls
 
                 // update the Canvas as you wish
                 SkCanvasView.InvalidateSurface();
+                PickedColorChanged?.Invoke(this, PickedColor);
             }
         }
 

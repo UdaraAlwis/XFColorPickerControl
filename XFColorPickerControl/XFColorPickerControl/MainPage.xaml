@@ -13,13 +13,11 @@
     <Grid Padding="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackLayout
-            Grid.Row="0"
-            Orientation="Vertical"
-            VerticalOptions="Start">
+        <StackLayout Grid.Row="0" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
             <Label
                 Grid.Row="0"
                 FontSize="Medium"
@@ -30,29 +28,61 @@
                 FontSize="Medium"
                 HorizontalTextAlignment="Center"
                 Text="This is my Interactive and Responsive Color Picker Control based on SkiaSharp!" />
+
+            <Grid Grid.Row="2" HorizontalOptions="FillAndExpand" Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <controls:ColorPicker x:Name="TestColorPicker" Margin="44, 10" PickedColorChanged="TestColorPicker_PickedColorChanged"/>
+
+                <Picker x:Name="SystemColorPicker"  Grid.Column="1" Margin="44, 20" FontSize="Medium" SelectedIndexChanged="SystemColorPicker_SelectedIndexChanged">
+                    <Picker.ItemDisplayBinding>
+                        <Binding Path="Name" />
+                    </Picker.ItemDisplayBinding>
+                </Picker>
+
+            </Grid>
         </StackLayout>
 
-        <StackLayout
-            Grid.Row="1"
-            Orientation="Vertical"
-            Spacing="15"
-            VerticalOptions="Center">
-            <Frame
-                x:Name="SelectedColorDisplayFrame"
-                BackgroundColor="White"
-                CornerRadius="8"
-                HeightRequest="70"
-                HorizontalOptions="Center"
-                WidthRequest="350">
-                <Label
-                    x:Name="SelectedColorValueLabel"
-                    FontAttributes="Bold"
-                    FontSize="Title"
-                    HorizontalTextAlignment="Center"
-                    Text="#COLOR"
-                    TextColor="SlateGray"
-                    VerticalTextAlignment="Center" />
-            </Frame>
+        <StackLayout Orientation="Vertical" Grid.Row="1" Spacing="30" VerticalOptions="Center">
+            
+            <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="15" VerticalOptions="Center">
+
+                <Frame x:Name="SelectedColorDisplayFrame" 
+                       BackgroundColor="White" 
+                       CornerRadius="8" 
+                       HeightRequest="70" 
+                       HorizontalOptions="CenterAndExpand" 
+                       WidthRequest="350">
+                    
+                    <Label x:Name="SelectedColorValueLabel" 
+                           FontAttributes="Bold"
+                           FontSize="Title"
+                           HorizontalTextAlignment="Center"
+                           Text="#COLOR"
+                           TextColor="SlateGray"
+                           VerticalTextAlignment="Center" />
+                </Frame>
+
+                <Frame x:Name="SystemSelectedColorDisplayFrame" 
+                       BackgroundColor="White" 
+                       CornerRadius="8" 
+                       HeightRequest="70" 
+                       HorizontalOptions="CenterAndExpand" 
+                       WidthRequest="350">
+                    <Label x:Name="SystemSelectedColorValueLabel" 
+                           FontAttributes="Bold"
+                           FontSize="Title"
+                           HorizontalTextAlignment="Center"
+                           Text="#COLOR"
+                           TextColor="SlateGray"
+                           VerticalTextAlignment="Center" />
+                </Frame>
+
+            </StackLayout>
+            
             <Frame
                 x:Name="ColorPickerHolderFrame"
                 CornerRadius="8"
@@ -61,29 +91,12 @@
                 WidthRequest="350">
                 <controls:ColorPicker
                     x:Name="ColorPicker"
+                    PickedColor="#ff10fede"
                     ColorListDirection="Horizontal"
                     GradientColorStyle="DarkToColorsToLightStyle"
                     PickedColorChanged="ColorPicker_PickedColorChanged"
                     PointerCircleBorderUnits="0.3"
                     PointerCircleDiameterUnits="0.7">
-                    <controls:ColorPicker.ColorList>
-                        <x:Array Type="{x:Type x:String}">
-                            <!--  Red  -->
-                            <x:String>#ff0000</x:String>
-                            <!--  Yellow  -->
-                            <x:String>#ffff00</x:String>
-                            <!--  Green (Lime)  -->
-                            <x:String>#00ff00</x:String>
-                            <!--  Aqua  -->
-                            <x:String>#00ffff</x:String>
-                            <!--  Blue  -->
-                            <x:String>#0000ff</x:String>
-                            <!--  Fuchsia  -->
-                            <x:String>#ff00ff</x:String>
-                            <!--  Red  -->
-                            <x:String>#ff0000</x:String>
-                        </x:Array>
-                    </controls:ColorPicker.ColorList>
                 </controls:ColorPicker>
             </Frame>
         </StackLayout>

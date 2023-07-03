@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using Xamarin.Forms;
+using XFColorPickerControl.Controls;
 
 namespace XFColorPickerControl
 {
@@ -13,9 +12,27 @@ namespace XFColorPickerControl
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        public class ColorItem
+        {
+            public string Name { get; set; }
+            public Color Value { get; set; }
+        }
         public MainPage()
         {
             InitializeComponent();
+
+            var allColors = typeof(Color)
+                .GetRuntimeFields()
+                .Where(f => f.FieldType == typeof(Color))
+                .Select(prop => new ColorItem 
+                { 
+                    Name = prop.Name,
+                    Value = (Color)prop.GetValue(null)
+                })
+                .ToList();
+
+            SystemColorPicker.ItemsSource = allColors;
+            SystemColorPicker.SelectedIndex = 0;
         }
 
 		private void ColorPicker_PickedColorChanged(object sender, Color colorPicked)
@@ -26,9 +43,30 @@ namespace XFColorPickerControl
 			ColorPickerHolderFrame.BackgroundColor = colorPicked;
 
 			if (colorPicked.Luminosity < 0.5)
-				SelectedColorValueLabel.TextColor = Xamarin.Forms.Color.White;
+				SelectedColorValueLabel.TextColor = Color.White;
 			else
-				SelectedColorValueLabel.TextColor = Xamarin.Forms.Color.SlateGray;
+				SelectedColorValueLabel.TextColor = Color.SlateGray;
 		}
-	}
+
+        private void TestColorPicker_PickedColorChanged(object sender, Color e)
+        {
+            ColorPicker.PickedColor = e;
+        }
+
+        private void SystemColorPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var color = (SystemColorPicker.SelectedItem as ColorItem).Value;
+
+            ColorPicker.PickedColor = color;
+
+            // Use the selected color
+            SystemSelectedColorDisplayFrame.BackgroundColor = color;
+            SystemSelectedColorValueLabel.Text = color.ToHex();
+
+            if (color.Luminosity < 0.5)
+                SystemSelectedColorValueLabel.TextColor = Color.White;
+            else
+                SystemSelectedColorValueLabel.TextColor = Color.SlateGray;
+        }
+    }
 }
